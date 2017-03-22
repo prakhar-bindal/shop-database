@@ -15,10 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MovieActivity"
-            android:label="@string/movies"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".DistributerActivity"
+        <activity android:name=".ShowsActivity"
             android:label="@string/distributers"
             android:parentActivityName=".MainActivity"
             />

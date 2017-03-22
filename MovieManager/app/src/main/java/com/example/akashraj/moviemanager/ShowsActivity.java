@@ -7,7 +7,7 @@ package com.example.akashraj.moviemanager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class DistributerActivity extends AppCompatActivity{
+public class ShowsActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.distributers);

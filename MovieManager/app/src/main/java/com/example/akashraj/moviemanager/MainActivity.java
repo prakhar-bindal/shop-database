@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         movieTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent launchMovieActivity = new Intent(MainActivity.this,MovieActivity.class);
+                Intent launchMovieActivity = new Intent(MainActivity.this,CatalogActivity.class);
                 startActivity(launchMovieActivity);
             }
         });
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         distributerTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent launchDistributerActivity = new Intent(MainActivity.this,DistributerActivity.class);
+                Intent launchDistributerActivity = new Intent(MainActivity.this,ShowsActivity.class);
                 startActivity(launchDistributerActivity);
             }
         });
