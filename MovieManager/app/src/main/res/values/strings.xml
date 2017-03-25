@@ -18,7 +18,7 @@
     <string name="empty_view_subtitle_text">Get started by adding data</string>
 
     <!-- Title for the activity to add a new pet [CHAR LIMIT=20] -->
-    <string name="editor_activity_title_new_pet">Add a MOvie</string>
+    <string name="editor_activity_title_new_pet">Add a Movie</string>
 
     <!-- Title for the activity to edit an existing pet [CHAR LIMIT=20] -->
     <string name="editor_activity_title_edit_pet">Edit Movie</string>

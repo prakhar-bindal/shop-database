@@ -15,8 +15,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CatalogActivity"
+            android:label="Movies"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".EditorActivity"
+            android:label="Add movie"
+            android:parentActivityName=".CatalogActivity"
+            />
         <activity android:name=".ShowsActivity"
-            android:label="@string/distributers"
+            android:label="@string/shows"
             android:parentActivityName=".MainActivity"
             />
         <activity android:name=".TheatreActivity"

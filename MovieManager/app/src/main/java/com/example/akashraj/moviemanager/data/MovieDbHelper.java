@@ -19,7 +19,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = MovieDbHelper.class.getSimpleName();
 
     /** Name of the database file */
-    private static final String DATABASE_NAME = "shelter.db";
+    private static final String DATABASE_NAME = "moviedatabase.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
@@ -41,15 +41,32 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a String that contains the SQL statement to create the pets table
-        String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + MovieEntry.TABLE_NAME + " ("
+        String SQL_CREATE_MOVIE_TABLE =  "CREATE TABLE " + MovieEntry.TABLE_NAME + " ("
                 + MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + MovieEntry.COLUMN_PET_NAME + " TEXT NOT NULL, "
-                + MovieEntry.COLUMN_PET_BREED + " TEXT, "
-                + MovieEntry.COLUMN_PET_GENDER + " INTEGER NOT NULL, "
-                + MovieEntry.COLUMN_PET_WEIGHT + " INTEGER NOT NULL DEFAULT 0);";
+                + MovieEntry.COLUMN_MOVIE_NAME + " TEXT NOT NULL, "
+                + MovieEntry.COLUMN_DIRECTOR_NAME + " TEXT NOT NULL, "
+                + MovieEntry.COLUMN_PRODUCER_NAME + " TEXT NOT NULL, "
+                + MovieEntry.COLUMN_RUN_TIME + " INTEGER NOT NULL DEFAULT 0);";
 
         // Execute the SQL statement
-        db.execSQL(SQL_CREATE_PETS_TABLE);
+        db.execSQL(SQL_CREATE_MOVIE_TABLE);
+
+        String SQL_CREATE_THEATRE_TABLE =  "CREATE TABLE " + MovieEntry.TABLE1_NAME + " ("
+                + MovieEntry._ID1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MovieEntry.COLUMN_THEATRE_NAME + " TEXT NOT NULL, "
+                + MovieEntry.COLUMN_ADDRESS + " TEXT NOT NULL, "
+                + MovieEntry.COLUMN_NUM_OF_SCREENS + " INTEGER NOT NULL DEFAULT 0);";
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_THEATRE_TABLE);
+
+        String SQL_CREATE_SHOWS_TABLE =  "CREATE TABLE " + MovieEntry.TABLE2_NAME + " ("
+                + MovieEntry._ID21 + " INTEGER, "
+                + MovieEntry.COLUMN_MOVIE_NAME + " TEXT NOT NULL, "
+                + MovieEntry._ID31 + " INTEGER, "
+                + MovieEntry.COLUMN_THEATRE_NAME + " TEXT NOT NULL, "
+                + " FOREIGN KEY ("+MovieEntry._ID31+","+MovieEntry.COLUMN_THEATRE_NAME+") REFERENCES "+MovieEntry.TABLE1_NAME+"("+MovieEntry._ID1+","+MovieEntry.COLUMN_THEATRE_NAME+")" + " ON DELETE CASCADE ON UPDATE CASCADE,"
+                + " FOREIGN KEY ("+MovieEntry._ID21+","+MovieEntry.COLUMN_MOVIE_NAME+") REFERENCES "+MovieEntry.TABLE_NAME+"("+MovieEntry._ID+","+MovieEntry.COLUMN_MOVIE_NAME+")" + " ON DELETE CASCADE ON UPDATE CASCADE);";
     }
 
     /**

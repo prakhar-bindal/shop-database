@@ -17,7 +17,7 @@ public final class MovieContract {
 
     private MovieContract(){}
 
-    public static final String CONTENT_AUTHORITY = "com.example.android.pets";
+    public static final String CONTENT_AUTHORITY = "com.example.akashraj.moviemanager";
 
     /**
      * Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
@@ -31,7 +31,7 @@ public final class MovieContract {
      * looking at pet data. content://com.example.android.pets/staff/ will fail,
      * as the ContentProvider hasn't been given any information on what to do with "staff".
      */
-    public static final String PATH_PETS = "pets";
+    public static final String PATH_MOVIE = "moviemanager";
 
     public static abstract class MovieEntry implements BaseColumns {
 
@@ -42,23 +42,38 @@ public final class MovieContract {
             return false;
         }
 
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_MOVIE);
 
         public static final String CONTENT_LIST_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PETS;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOVIE;
 
         /**
          * The MIME type of the {@link #CONTENT_URI} for a single pet.
          */
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PETS;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOVIE;
 
-        public static final String TABLE_NAME="pets";
+        public static final String TABLE_NAME="movie";
         public static final String _ID=BaseColumns._ID;
-        public static final String COLUMN_PET_NAME="name";
-        public static final String COLUMN_PET_BREED="breed";
-        public static final String COLUMN_PET_GENDER="gender";
-        public static final String COLUMN_PET_WEIGHT="weight";
+        public static final String COLUMN_MOVIE_NAME="movie name";
+        public static final String COLUMN_DIRECTOR_NAME="Director";
+        public static final String COLUMN_PRODUCER_NAME="producer";
+        public static final String COLUMN_RUN_TIME="length";
+
+        public static final String TABLE1_NAME="theatres";
+        public static final String _ID1=BaseColumns._ID;
+        public static final String COLUMN_THEATRE_NAME="name";
+        public static final String COLUMN_ADDRESS = "address";
+        public static final String COLUMN_NUM_OF_SCREENS = "screens";
+
+        public static final String TABLE2_NAME="shows";
+        public static final String _ID21="id from movie";
+        public static final String _ID31="id from theatres";
+
+
+
+
+
 
 
         public static final int GENDER_MALE=1;

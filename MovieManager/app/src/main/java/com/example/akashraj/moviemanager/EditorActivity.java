@@ -69,13 +69,14 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText mNameEditText;
 
     /** EditText field to enter the pet's breed */
-    private EditText mBreedEditText;
+    private EditText mDirectorEditText;
+    
+    private EditText mProducerEditText;
 
     /** EditText field to enter the pet's weight */
-    private EditText mWeightEditText;
+    private EditText mlengthEditText;
 
     /** EditText field to enter the pet's gender */
-    private Spinner mGenderSpinner;
 
     /**
      * Gender of the pet. The possible valid values are in the MovieContract.java file:
@@ -109,57 +110,56 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         // Find all relevant views that we will need to read user input from
-        mNameEditText = (EditText) findViewById(R.id.edit_pet_name);
-        mBreedEditText = (EditText) findViewById(R.id.edit_pet_breed);
-        mWeightEditText = (EditText) findViewById(R.id.edit_pet_weight);
-        mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
+        mNameEditText = (EditText) findViewById(R.id.edit_movie_name);
+        mDirectorEditText = (EditText) findViewById(R.id.edit_movie_director);
+        mProducerEditText = (EditText) findViewById(R.id.edit_movie_producer);
+        mlengthEditText = (EditText) findViewById(R.id.edit_movie_time);
 
         mNameEditText.setOnTouchListener(mTouchListener);
-        mBreedEditText.setOnTouchListener(mTouchListener);
-        mWeightEditText.setOnTouchListener(mTouchListener);
-        mGenderSpinner.setOnTouchListener(mTouchListener);
+        mDirectorEditText.setOnTouchListener(mTouchListener);
+        mProducerEditText.setOnTouchListener(mTouchListener);
+        mlengthEditText.setOnTouchListener(mTouchListener);
 
-        setupSpinner();
     }
 
     /**
      * Setup the dropdown spinner that allows the user to select the gender of the pet.
      */
-    private void setupSpinner() {
-        // Create adapter for spinner. The list options are from the String array it will use
-        // the spinner will use the default layout
-        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_gender_options, android.R.layout.simple_spinner_item);
-
-        // Specify dropdown layout style - simple list view with 1 item per line
-        genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        // Apply the adapter to the spinner
-        mGenderSpinner.setAdapter(genderSpinnerAdapter);
-
-        // Set the integer mSelected to the constant values
-        mGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.gender_male))) {
-                        mGender = MovieEntry.GENDER_MALE;
-                    } else if (selection.equals(getString(R.string.gender_female))) {
-                        mGender = MovieEntry.GENDER_FEMALE;
-                    } else {
-                        mGender = MovieEntry.GENDER_UNKNOWN;
-                    }
-                }
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mGender = MovieEntry.GENDER_UNKNOWN;
-            }
-        });
-    }
+//    private void setupSpinner() {
+//        // Create adapter for spinner. The list options are from the String array it will use
+//        // the spinner will use the default layout
+//        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
+//                R.array.array_gender_options, android.R.layout.simple_spinner_item);
+//
+//        // Specify dropdown layout style - simple list view with 1 item per line
+//        genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+//
+//        // Apply the adapter to the spinner
+//        mGenderSpinner.setAdapter(genderSpinnerAdapter);
+//
+//        // Set the integer mSelected to the constant values
+//        mGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selection = (String) parent.getItemAtPosition(position);
+//                if (!TextUtils.isEmpty(selection)) {
+//                    if (selection.equals(getString(R.string.gender_male))) {
+//                        mGender = MovieEntry.GENDER_MALE;
+//                    } else if (selection.equals(getString(R.string.gender_female))) {
+//                        mGender = MovieEntry.GENDER_FEMALE;
+//                    } else {
+//                        mGender = MovieEntry.GENDER_UNKNOWN;
+//                    }
+//                }
+//            }
+//
+//            // Because AdapterView is an abstract class, onNothingSelected must be defined
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                mGender = MovieEntry.GENDER_UNKNOWN;
+//            }
+//        });
+//    }
 
     /**
      * Get user input from editor and save pet into database.
@@ -168,20 +168,21 @@ public class EditorActivity extends AppCompatActivity implements
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
-        String breedString = mBreedEditText.getText().toString().trim();
-        String weightString = mWeightEditText.getText().toString().trim();
+        String directorString = mDirectorEditText.getText().toString().trim();
+        String producerString = mProducerEditText.getText().toString().trim();
+        String lengthString = mlengthEditText.getText().toString().trim();
 
         // Create a ContentValues object where column names are the keys,
         if (mCurrentPetUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(breedString) &&
-                TextUtils.isEmpty(weightString) && mGender == MovieEntry.GENDER_UNKNOWN) {return;}
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(directorString) && TextUtils.isEmpty(producerString) &&
+                TextUtils.isEmpty(lengthString)) {return;}
 
 
         // and pet attributes from the editor are the values.
         ContentValues values = new ContentValues();
-        values.put(MovieEntry.COLUMN_PET_NAME, nameString);
-        values.put(MovieEntry.COLUMN_PET_BREED, breedString);
-        values.put(MovieEntry.COLUMN_PET_GENDER, mGender);
+        values.put(MovieEntry.COLUMN_MOVIE_NAME, nameString);
+        values.put(MovieEntry.COLUMN_DIRECTOR_NAME,directorString);
+        values.put(MovieEntry.COLUMN_PRODUCER_NAME,producerString);
 
         int weight = 0;
         if (!TextUtils.isEmpty(weightString)) {
@@ -344,8 +345,8 @@ public class EditorActivity extends AppCompatActivity implements
 
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
-            mBreedEditText.setText(breed);
-            mWeightEditText.setText(Integer.toString(weight));
+            mDirectorEditText.setText(breed);
+            mlengthEditText.setText(Integer.toString(weight));
 
             // Gender is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
@@ -368,8 +369,8 @@ public class EditorActivity extends AppCompatActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         // If the loader is invalidated, clear out all the data from the input fields.
         mNameEditText.setText("");
-        mBreedEditText.setText("");
-        mWeightEditText.setText("");
+        mDirectorEditText.setText("");
+        mlengthEditText.setText("");
         mGenderSpinner.setSelection(0); // Select "Unknown" gender
     }
     private void showUnsavedChangesDialog(
