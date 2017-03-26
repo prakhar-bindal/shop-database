@@ -1,21 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#00796B</color>
-    <color name="colorLightPrimary">#B2DFDB</color>
-    <color name="colorText_Icons">#FFFFFF</color>
-    <color name="colorAccent">#CDDC39</color>
-    <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#757575</color>
-    <color name="colorDivider">#BDBDBD</color>
+    <!--<color name="colorPrimary">#009688</color>-->
+    <!--<color name="colorPrimaryDark">#00796B</color>-->
+    <!--<color name="colorLightPrimary">#B2DFDB</color>-->
+    <!--<color name="colorText_Icons">#FFFFFF</color>-->
+    <!--<color name="colorAccent">#CDDC39</color>-->
+    <!--<color name="colorPrimaryText">#212121</color>-->
+    <!--<color name="colorSecondaryText">#757575</color>-->
+    <!--<color name="colorDivider">#BDBDBD</color>-->
+
+    <!--&lt;!&ndash; Darker variant for the status bar and contextual app bars &ndash;&gt;-->
+
+    <!--&lt;!&ndash; Accent color for UI controls like checkboxes and text fields &ndash;&gt;-->
+
+    <!--&lt;!&ndash; Primary color for the editor &ndash;&gt;-->
+    <!--<color name="editorColorPrimary">#2D3640</color>-->
+
+    <!--&lt;!&ndash; Primary dark color for the editor &ndash;&gt;-->
+    <!--<color name="editorColorPrimaryDark">#394450</color>-->
+
+
+    <!-- The app branding color for the app bar -->
+    <color name="colorPrimary">#F0514B</color>
 
     <!-- Darker variant for the status bar and contextual app bars -->
+    <color name="colorPrimaryDark">#C0403C</color>
 
     <!-- Accent color for UI controls like checkboxes and text fields -->
+    <color name="colorAccent">#F0514B</color>
 
     <!-- Primary color for the editor -->
     <color name="editorColorPrimary">#2D3640</color>
 
     <!-- Primary dark color for the editor -->
     <color name="editorColorPrimaryDark">#394450</color>
+
+    <!-- Primary color of the app (shown in the app bar) -->
+    <color name="primary_color">#4A312A</color>
+
+    <!-- Primary dark color of the app (shown in the status bar) -->
+    <color name="primary_dark_color">#2F1D1A</color>
+
+    <!-- Background color for app -->
+    <color name="tan_background">#FFF7DA</color>
+
+    <!-- Background color for the numbers category -->
+    <color name="category_numbers">#FD8E09</color>
+
+    <!-- Background color for the family members category -->
+    <color name="category_family">#379237</color>
+
+    <!-- Background color for the colors category -->
+    <color name="category_colors">#8800A0</color>
+
+    <!-- Background color for the phrases category -->
+    <color name="category_phrases">#16AFCA</color>
 </resources>

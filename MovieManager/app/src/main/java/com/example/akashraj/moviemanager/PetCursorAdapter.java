@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.example.akashraj.moviemanager.data.MovieContract;
+import com.example.akashraj.moviemanager.data.PetContract;
 
 /**
  * Created by prakhar on 19/2/17.
@@ -55,13 +55,24 @@ public class PetCursorAdapter extends CursorAdapter {
         TextView textname = (TextView) view.findViewById(R.id.name);
         TextView textsummary = (TextView) view.findViewById(R.id.summary);
 
-        int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PET_NAME);
-        int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PET_BREED);
+        int nameColumnIndex=cursor.getColumnIndex(PetContract.PetEntry.COLUMN_MOVIE_NAME);
+        int summaryColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_DIRECTOR_NAME);
         // Extract properties from cursor
         String name = cursor.getString(nameColumnIndex);
         String summary = cursor.getString(summaryColumnIndex);
         // Populate fields with extracted properties
         textname.setText(name);
         textsummary.setText(summary);
+
+
+
+//        int nameColumnIndex=cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_NAME);
+//        int summaryColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_BREED);
+//        // Extract properties from cursor
+//        String name = cursor.getString(nameColumnIndex);
+//        String summary = cursor.getString(summaryColumnIndex);
+//        // Populate fields with extracted properties
+//        textname.setText(name);
+//        textsummary.setText(summary);
     }
 }
