@@ -11,10 +11,10 @@ import android.widget.TextView;
 import com.example.akashraj.moviemanager.data.MovieContract;
 
 /**
- * Created by prakhar on 19/2/17.
+ * Created by prakhar on 26/3/17.
  */
 
-public class PetCursorAdapter extends CursorAdapter {
+public class TheatreCursorAdapter extends CursorAdapter {
 
     /**
      * Constructs a new {@link PetCursorAdapter}.
@@ -22,7 +22,7 @@ public class PetCursorAdapter extends CursorAdapter {
      * @param context The context
      * @param c       The cursor from which to get the data.
      */
-    public PetCursorAdapter(Context context, Cursor c) {
+    public TheatreCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
     }
 
@@ -55,24 +55,20 @@ public class PetCursorAdapter extends CursorAdapter {
         TextView textname = (TextView) view.findViewById(R.id.name);
         TextView textsummary = (TextView) view.findViewById(R.id.summary);
         TextView textproducer = (TextView) view.findViewById(R.id.producer);
-        TextView textlength = (TextView) view.findViewById(R.id.runtime);
 
-        int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_NAME);
-        int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME);
-        int ProducerColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PRODUCER_NAME);
-        int runtimeColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_RUN_TIME);
+        int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_THEATRE_NAME);
+        int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_ADDRESS);
+        int ProducerColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS);
         // Extract properties from cursor
         String name = cursor.getString(nameColumnIndex);
         String summary = cursor.getString(summaryColumnIndex);
-        String producer = cursor.getString(ProducerColumnIndex);
-        int length = cursor.getInt(runtimeColumnIndex);
+        int length = cursor.getInt(ProducerColumnIndex);
         String run = Integer.toString(length);
-      //  String run = toString(length);
+        //  String run = toString(length);
         // Populate fields with extracted properties
         textname.setText(name);
         textsummary.setText(summary);
-        textproducer.setText(producer);
-        textlength.setText(run);
+        textproducer.setText(run);
 
 
 
@@ -86,3 +82,4 @@ public class PetCursorAdapter extends CursorAdapter {
 //        textsummary.setText(summary);
     }
 }
+

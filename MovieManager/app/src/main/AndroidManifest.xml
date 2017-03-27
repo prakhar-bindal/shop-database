@@ -49,9 +49,19 @@
                 android:value=".CatalogActivity" />
             />
         </activity>
+
+        <activity android:name=".TheatreEditorActivity"
+            android:label="Add movie"
+            android:parentActivityName=".TheatreActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TheatreActivity" />
+            />
+        </activity>
+
         <provider
             android:authorities="com.example.akashraj.moviemanager"
-            android:name=".data.PetProvider"
+            android:name=".data.MovieProvider"
             android:exported="false"/>
     </application>
 
