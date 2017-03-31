@@ -93,6 +93,7 @@ public class CatalogActivity extends AppCompatActivity implements
                 // {@link MovieEntry#CONTENT_URI}.
                 // For example, the URI would be "content://com.example.android.pets/pets/2"
                 // if the pet with ID 2 was clicked on.
+
                 Uri currentPetUri = ContentUris.withAppendedId(MovieEntry.CONTENT_URI, id);
 
                 // Set the URI on the data field of the intent
@@ -109,22 +110,22 @@ public class CatalogActivity extends AppCompatActivity implements
 
     /**
      * Helper method to insert hardcoded pet data into the database. For debugging purposes only.
-     */
-    private void insertPet() {
-        // Create a ContentValues object where column names are the keys,
-        // and Toto's pet attributes are the values.
-        ContentValues values = new ContentValues();
-        values.put(MovieContract.MovieEntry.COLUMN_MOVIE_NAME, "3 idots");
-        values.put(MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME, "Rajkumar Hirani");
-        values.put(MovieContract.MovieEntry.COLUMN_PRODUCER_NAME,"UTV");
-        values.put(MovieContract.MovieEntry.COLUMN_RUN_TIME, 120);
-
-        // Insert a new row for Toto into the provider using the ContentResolver.
-        // Use the {@link MovieEntry#CONTENT_URI} to indicate that we want to insert
-        // into the pets database table.
-        // Receive the new content URI that will allow us to access Toto's data in the future.
-        Uri newUri = getContentResolver().insert(MovieEntry.CONTENT_URI, values);
-    }
+//     */
+//    private void insertPet() {
+//        // Create a ContentValues object where column names are the keys,
+//        // and Toto's pet attributes are the values.
+//        ContentValues values = new ContentValues();
+//        values.put(MovieContract.MovieEntry.COLUMN_MOVIE_NAME, "3 idots");
+//        values.put(MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME, "Rajkumar Hirani");
+//        values.put(MovieContract.MovieEntry.COLUMN_PRODUCER_NAME,"UTV");
+//        values.put(MovieContract.MovieEntry.COLUMN_RUN_TIME, 120);
+//
+//        // Insert a new row for Toto into the provider using the ContentResolver.
+//        // Use the {@link MovieEntry#CONTENT_URI} to indicate that we want to insert
+//        // into the pets database table.
+//        // Receive the new content URI that will allow us to access Toto's data in the future.
+//        Uri newUri = getContentResolver().insert(MovieEntry.CONTENT_URI, values);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,7 +141,7 @@ public class CatalogActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
-                insertPet();
+                //insertPet();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:

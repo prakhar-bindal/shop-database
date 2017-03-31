@@ -55,13 +55,16 @@ public class TheatreCursorAdapter extends CursorAdapter {
         TextView textname = (TextView) view.findViewById(R.id.name);
         TextView textsummary = (TextView) view.findViewById(R.id.summary);
         TextView textproducer = (TextView) view.findViewById(R.id.producer);
+        TextView textid = (TextView) view.findViewById((R.id.id));
 
         int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_THEATRE_NAME);
         int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_ADDRESS);
         int ProducerColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS);
+        int idColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry._ID1);
         // Extract properties from cursor
         String name = cursor.getString(nameColumnIndex);
         String summary = cursor.getString(summaryColumnIndex);
+        String id = cursor.getString(idColumnIndex);
         int length = cursor.getInt(ProducerColumnIndex);
         String run = Integer.toString(length);
         //  String run = toString(length);
@@ -69,6 +72,7 @@ public class TheatreCursorAdapter extends CursorAdapter {
         textname.setText(name);
         textsummary.setText(summary);
         textproducer.setText(run);
+        textid.setText(id);
 
 
 

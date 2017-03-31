@@ -56,8 +56,10 @@ public class PetCursorAdapter extends CursorAdapter {
         TextView textsummary = (TextView) view.findViewById(R.id.summary);
         TextView textproducer = (TextView) view.findViewById(R.id.producer);
         TextView textlength = (TextView) view.findViewById(R.id.runtime);
+        TextView textid = (TextView) view.findViewById(R.id.id);
 
         int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_NAME);
+        int idColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry._ID);
         int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME);
         int ProducerColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PRODUCER_NAME);
         int runtimeColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_RUN_TIME);
@@ -65,11 +67,13 @@ public class PetCursorAdapter extends CursorAdapter {
         String name = cursor.getString(nameColumnIndex);
         String summary = cursor.getString(summaryColumnIndex);
         String producer = cursor.getString(ProducerColumnIndex);
+        String id = cursor.getString(idColumnIndex);
         int length = cursor.getInt(runtimeColumnIndex);
         String run = Integer.toString(length);
       //  String run = toString(length);
         // Populate fields with extracted properties
         textname.setText(name);
+        textid.setText(id);
         textsummary.setText(summary);
         textproducer.setText(producer);
         textlength.setText(run);

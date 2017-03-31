@@ -66,6 +66,11 @@
                 android:hint="Movie Name"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
+            <EditText
+                android:id="@+id/edit_movie_ID"
+                android:hint="Movie ID"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
 
             <!-- Breed field -->
             <EditText
@@ -79,6 +84,7 @@
                 android:hint="Producer Name"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
+
         </LinearLayout>
     </LinearLayout>
 

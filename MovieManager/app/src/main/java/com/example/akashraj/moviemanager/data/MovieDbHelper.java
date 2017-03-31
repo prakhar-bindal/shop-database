@@ -19,12 +19,12 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = MovieDbHelper.class.getSimpleName();
 
     /** Name of the database file */
-    private static final String DATABASE_NAME = "MOVIE123456789011.db";
+    private static final String DATABASE_NAME = "MOVIE12345678901123456789.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 18;
 
     /**
      * Constructs a new instance of {@link MovieDbHelper}.
@@ -42,7 +42,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 //         Create a String that contains the SQL statement to create the pets table
         String SQL_CREATE_MOVIE_TABLE =  "CREATE TABLE " + MovieContract.MovieEntry.TABLE_NAME + " ("
-                + MovieContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MovieContract.MovieEntry._ID + " INTEGER PRIMARY KEY NOT NULL, "
                 + MovieEntry.COLUMN_MOVIE_NAME + " TEXT NOT NULL, "
                 + MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME + " TEXT NOT NULL, "
                 + MovieContract.MovieEntry.COLUMN_PRODUCER_NAME + " TEXT NOT NULL, "
@@ -72,7 +72,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         
 //
         String SQL_CREATE_THEATRE_TABLE =  "CREATE TABLE " + MovieEntry.TABLE1_NAME + " ("
-                + MovieEntry._ID1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MovieEntry._ID1 + " INTEGER PRIMARY KEY NOT NULL, "
                 + MovieEntry.COLUMN_THEATRE_NAME + " TEXT NOT NULL, "
                 + MovieEntry.COLUMN_ADDRESS + " TEXT NOT NULL, "
                 + MovieEntry.COLUMN_NUM_OF_SCREENS + " INTEGER NOT NULL DEFAULT 0);";

@@ -72,6 +72,7 @@ public class EditorActivity extends AppCompatActivity implements
 
     /** EditText field to enter the pet's length */
     private EditText mlengthEditText;
+    private EditText meditmovieidText;
 
 
     @Override
@@ -103,11 +104,13 @@ public class EditorActivity extends AppCompatActivity implements
         mDirectorEditText = (EditText) findViewById(R.id.edit_movie_director);
         mProducerEditText = (EditText) findViewById(R.id.edit_movie_producer);
         mlengthEditText = (EditText) findViewById(R.id.edit_movie_time);
+        meditmovieidText = (EditText) findViewById(R.id.edit_movie_ID);
 
         mNameEditText.setOnTouchListener(mTouchListener);
         mDirectorEditText.setOnTouchListener(mTouchListener);
         mProducerEditText.setOnTouchListener(mTouchListener);
         mlengthEditText.setOnTouchListener(mTouchListener);
+        meditmovieidText.setOnTouchListener(mTouchListener);
 
     }
 
@@ -160,6 +163,7 @@ public class EditorActivity extends AppCompatActivity implements
         String directorString = mDirectorEditText.getText().toString().trim();
         String producerString = mProducerEditText.getText().toString().trim();
         String lengthString = mlengthEditText.getText().toString().trim();
+        String idString = meditmovieidText.getText().toString().trim();
 
         // Create a ContentValues object where column names are the keys,
         if (mCurrentPetUri == null &&
@@ -169,6 +173,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         // and pet attributes from the editor are the values.
         ContentValues values = new ContentValues();
+        values.put(MovieEntry._ID,idString);
         values.put(MovieEntry.COLUMN_MOVIE_NAME, nameString);
         values.put(MovieEntry.COLUMN_DIRECTOR_NAME,directorString);
         values.put(MovieEntry.COLUMN_PRODUCER_NAME,producerString);
@@ -322,6 +327,7 @@ public class EditorActivity extends AppCompatActivity implements
         if (cursor.moveToFirst()) {
             // Find the columns of pet attributes that we're interested in
             int nameColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_NAME);
+            int idColumnIndex = cursor.getColumnIndex(MovieEntry._ID);
             int directorColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_DIRECTOR_NAME);
             int producerColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_PRODUCER_NAME);
             int lengthColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_RUN_TIME);
@@ -331,9 +337,11 @@ public class EditorActivity extends AppCompatActivity implements
             String director = cursor.getString(directorColumnIndex);
             String producer = cursor.getString(producerColumnIndex);
             int length = cursor.getInt(lengthColumnIndex);
+            String id = cursor.getString(idColumnIndex);
 
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
+            meditmovieidText.setText(id);
             mDirectorEditText.setText(director);
             mProducerEditText.setText(producer);
             mlengthEditText.setText(Integer.toString(length));
@@ -349,6 +357,7 @@ public class EditorActivity extends AppCompatActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         // If the loader is invalidated, clear out all the data from the input fields.
         mNameEditText.setText("");
+        meditmovieidText.setText("");
         mDirectorEditText.setText("");
         mProducerEditText.setText("");
         mlengthEditText.setText("");

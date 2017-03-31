@@ -54,6 +54,11 @@
                 android:hint="Theatre Name"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
+            <EditText
+                android:id="@+id/edit_theatre_ID"
+                android:hint="Theatre ID"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
 
             <!-- Breed field -->
             <EditText

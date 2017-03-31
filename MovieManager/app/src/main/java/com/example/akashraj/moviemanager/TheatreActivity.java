@@ -89,20 +89,20 @@ public class TheatreActivity extends AppCompatActivity implements
     /**
      * Helper method to insert hardcoded pet data into the database. For debugging purposes only.
      */
-    private void insertPet() {
-        // Create a ContentValues object where column names are the keys,
-        // and Toto's pet attributes are the values.
-        ContentValues values = new ContentValues();
-        values.put(MovieContract.MovieEntry.COLUMN_THEATRE_NAME, "G3S");
-        values.put(MovieContract.MovieEntry.COLUMN_ADDRESS,"ROHINI");
-        values.put(MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS, 3);
-
-        // Insert a new row for Toto into the provider using the ContentResolver.
-        // Use the {@link MovieEntry#CONTENT_URI2} to indicate that we want to insert
-        // into the pets database table.
-        // Receive the new content URI that will allow us to access Toto's data in the future.
-        Uri newUri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI2, values);
-    }
+//    private void insertPet() {
+//        // Create a ContentValues object where column names are the keys,
+//        // and Toto's pet attributes are the values.
+//        ContentValues values = new ContentValues();
+//        values.put(MovieContract.MovieEntry.COLUMN_THEATRE_NAME, "G3S");
+//        values.put(MovieContract.MovieEntry.COLUMN_ADDRESS,"ROHINI");
+//        values.put(MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS, 3);
+//
+//        // Insert a new row for Toto into the provider using the ContentResolver.
+//        // Use the {@link MovieEntry#CONTENT_URI2} to indicate that we want to insert
+//        // into the pets database table.
+//        // Receive the new content URI that will allow us to access Toto's data in the future.
+//        Uri newUri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI2, values);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,7 +118,7 @@ public class TheatreActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
-                insertPet();
+               // insertPet();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:

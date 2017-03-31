@@ -62,6 +62,7 @@ public class TheatreEditorActivity extends AppCompatActivity implements
      * EditText field to enter the pet's director
      */
     private EditText mAddressEditText;
+    private EditText mIDEditText;
 
 
     /**
@@ -98,10 +99,12 @@ public class TheatreEditorActivity extends AppCompatActivity implements
         mTheatreEditText = (EditText) findViewById(R.id.edit_theatre_name);
         mAddressEditText = (EditText) findViewById(R.id.edit_theatre_address);
         mScreensEditText = (EditText) findViewById(R.id.edit_theatre_screen);
+        mIDEditText = (EditText) findViewById(R.id.edit_theatre_ID);
 
         mTheatreEditText.setOnTouchListener(mTouchListener);
         mAddressEditText.setOnTouchListener(mTouchListener);
         mScreensEditText.setOnTouchListener(mTouchListener);
+        mIDEditText.setOnTouchListener(mTouchListener);
 
     }
 
@@ -153,6 +156,7 @@ public class TheatreEditorActivity extends AppCompatActivity implements
         String nameString = mTheatreEditText.getText().toString().trim();
         String addressString = mAddressEditText.getText().toString().trim();
         String ScreensString = mScreensEditText.getText().toString().trim();
+        String id1 = mIDEditText.getText().toString().trim();
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
 
@@ -194,6 +198,7 @@ public class TheatreEditorActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(MovieContract.MovieEntry.COLUMN_THEATRE_NAME, nameString);
         values.put(MovieContract.MovieEntry.COLUMN_ADDRESS, addressString);
+        values.put(MovieContract.MovieEntry._ID1,id1);
 
         int length = 0;
         if (!TextUtils.isEmpty(ScreensString)) {
@@ -317,7 +322,7 @@ public class TheatreEditorActivity extends AppCompatActivity implements
         // Since the editor shows all pet attributes, define a projection that contains
         // all columns from the pet table
         String[] projection = {
-                MovieContract.MovieEntry._ID,
+                MovieContract.MovieEntry._ID1,
                 MovieContract.MovieEntry.COLUMN_THEATRE_NAME,
                 MovieContract.MovieEntry.COLUMN_ADDRESS,
                 MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS};
@@ -345,14 +350,17 @@ public class TheatreEditorActivity extends AppCompatActivity implements
             int nameColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_THEATRE_NAME);
             int directorColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_ADDRESS);
             int lengthColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS);
+            int idColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry._ID1);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
             String director = cursor.getString(directorColumnIndex);
             int length = cursor.getInt(lengthColumnIndex);
-
+            String id = cursor.getString(idColumnIndex)
+;
             // Update the views on the screen with the values from the database
             mTheatreEditText.setText(name);
+            mIDEditText.setText(id);
             mAddressEditText.setText(director);
             mScreensEditText.setText(Integer.toString(length));
 
@@ -369,6 +377,7 @@ public class TheatreEditorActivity extends AppCompatActivity implements
         mTheatreEditText.setText("");
         mAddressEditText.setText("");
         mScreensEditText.setText("");
+        mIDEditText.setText("");
     }
 
     private void showUnsavedChangesDialog(
