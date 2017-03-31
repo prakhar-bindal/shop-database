@@ -19,7 +19,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = MovieDbHelper.class.getSimpleName();
 
     /** Name of the database file */
-    private static final String DATABASE_NAME = "MOVIE12345678901123456789.db";
+    private static final String DATABASE_NAME = "MOVIE1234567890112345678910123.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
@@ -37,7 +37,18 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 
     /**
      * This is called when the database is created for the first time.
+     *
      */
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 //         Create a String that contains the SQL statement to create the pets table
@@ -80,13 +91,14 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 //        // Execute the SQL statement
         db.execSQL(SQL_CREATE_THEATRE_TABLE);
 //
-//        String SQL_CREATE_SHOWS_TABLE =  "CREATE TABLE " + MovieEntry.TABLE2_NAME + " ("
-//                + MovieEntry._ID21 + " INTEGER, "
-//                + MovieEntry.COLUMN_MOVIE_NAME + " TEXT NOT NULL, "
-//                + MovieEntry._ID31 + " INTEGER, "
-//                + MovieEntry.COLUMN_THEATRE_NAME + " TEXT NOT NULL, "
-//                + " FOREIGN KEY ("+MovieEntry._ID31+","+MovieEntry.COLUMN_THEATRE_NAME+") REFERENCES "+MovieEntry.TABLE1_NAME+"("+MovieEntry._ID1+","+MovieEntry.COLUMN_THEATRE_NAME+")" + " ON DELETE CASCADE ON UPDATE CASCADE,"
-//                + " FOREIGN KEY ("+MovieEntry._ID21+","+MovieEntry.COLUMN_MOVIE_NAME+") REFERENCES "+MovieEntry.TABLE_NAME+"("+MovieEntry._ID+","+MovieEntry.COLUMN_MOVIE_NAME+")" + " ON DELETE CASCADE ON UPDATE CASCADE);";
+        String SQL_CREATE_SHOWS_TABLE =  "CREATE TABLE " + MovieEntry.TABLE2_NAME + " ("
+                + MovieEntry._ID2 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MovieEntry._ID21 + " INTEGER, "
+                + MovieEntry._ID31 + " INTEGER, "
+                + " FOREIGN KEY ("+MovieEntry._ID21+") REFERENCES "+MovieEntry.TABLE_NAME+"("+MovieEntry._ID+")" + " ON DELETE CASCADE ON UPDATE CASCADE ,"
+                + " FOREIGN KEY ("+MovieEntry._ID31+") REFERENCES "+MovieEntry.TABLE1_NAME+"("+MovieEntry._ID1+")" + " ON DELETE CASCADE ON UPDATE CASCADE);";
+
+        db.execSQL(SQL_CREATE_SHOWS_TABLE);
    }
 
     /**

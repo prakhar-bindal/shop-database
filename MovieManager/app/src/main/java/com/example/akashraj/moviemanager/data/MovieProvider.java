@@ -16,6 +16,8 @@ import android.util.Log;
 
 import com.example.akashraj.moviemanager.data.MovieContract.MovieEntry;
 
+import java.util.IllegalFormatCodePointException;
+
 /**
  * Created by prakhar on 19/2/17.
  */
@@ -30,6 +32,8 @@ public class MovieProvider extends ContentProvider {
     private static final int PETS = 100;
     private static final int THEATRES =200;
     private static final int THEATRE_ID=201;
+    private static final int SHOWS= 300;
+    private static final int SHOWS_ID=301;
 
     private static final int PET_ID = 101;
 
@@ -47,6 +51,7 @@ public class MovieProvider extends ContentProvider {
         // of the MOVIEs table.
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS, PETS);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_THEATRES,THEATRES);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_SHOWS,SHOWS);
 
         // The content URI of the form "content://com.example.android.MOVIEs/MOVIEs/#" will map to the
         // integer code {@link #MOVIE_ID}. This URI is used to provide access to ONE single row
@@ -57,6 +62,7 @@ public class MovieProvider extends ContentProvider {
         // "content://com.example.android.MOVIEs/MOVIEs" (without a number at the end) doesn't match.
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS + "/#", PET_ID);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_THEATRES + "/#", THEATRE_ID);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_SHOWS + "/#", SHOWS_ID);
     }
     private MovieDbHelper mDbHelper;
 
@@ -124,6 +130,28 @@ public class MovieProvider extends ContentProvider {
                 cursor = database.query(MovieEntry.TABLE1_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
+            case SHOWS:
+                cursor = database.query(MovieContract.MovieEntry.TABLE2_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+            case SHOWS_ID:
+                // For the MOVIE_ID code, extract out the ID from the URI.
+                // For an example URI such as "content://com.example.android.MOVIEs/MOVIEs/3",
+                // the selection will be "_id=?" and the selection argument will be a
+                // String array containing the actual ID of 3 in this case.
+                //
+                // For every "?" in the selection, we need to have an element in the selection
+                // arguments that will fill in the "?". Since we have 1 question mark in the
+                // selection, we have 1 String in the selection arguments' String array.
+                selection = MovieEntry._ID2 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+
+                // This will perform a query on the MOVIEs table where the _id equals 3 to return a
+                // Cursor containing that row of the table.
+                cursor = database.query(MovieEntry.TABLE2_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
 
             default:
                 throw new IllegalArgumentException("Cannot query unknown URI " + uri);
@@ -146,6 +174,8 @@ public class MovieProvider extends ContentProvider {
                 return insertmovie(uri, contentValues);
             case THEATRES:
                 return inserttheatre(uri,contentValues);
+            case SHOWS:
+                return insertshows(uri,contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
@@ -197,6 +227,7 @@ public class MovieProvider extends ContentProvider {
         // Return the new URI with the ID (of the newly inserted row) appended at the end
         return ContentUris.withAppendedId(uri, id);
     }
+
     private Uri inserttheatre(Uri uri, ContentValues values) {
         // Check that the name is not null
         String name1 = values.getAsString(MovieEntry.COLUMN_THEATRE_NAME);
@@ -237,6 +268,40 @@ public class MovieProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri, id);
     }
 
+    private Uri insertshows(Uri uri, ContentValues values) {
+        // Check that the name is not null
+        // Check that the gender is vali
+        // If the weight is provided, check that it's greater than or equal to 0 kg
+        Integer id1 = values.getAsInteger(MovieEntry._ID21);
+        if (id1 != null && id1 < 0) {
+            throw new IllegalArgumentException("cant be zero");
+        }
+
+        Integer id2 = values.getAsInteger(MovieEntry._ID21);
+        if (id2 != null && id2 < 0) {
+            throw new IllegalArgumentException("cant be zero");
+        }
+
+        // No need to check the breed, any value is valid (including null).
+
+        // Get writeable database
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Insert the new MOVIE with the given values
+        long id = database.insert(MovieContract.MovieEntry.TABLE2_NAME, null, values);
+        // If the ID is -1, then the insertion failed. Log an error and return null.
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+            return null;
+        }
+
+        // Notify all listeners that the data has changed for the MOVIE content URI
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // Return the new URI with the ID (of the newly inserted row) appended at the end
+        return ContentUris.withAppendedId(uri, id);
+    }
+
     @Override
     public int update(Uri uri, ContentValues contentValues, String selection,
                       String[] selectionArgs) {
@@ -260,6 +325,15 @@ public class MovieProvider extends ContentProvider {
                 selection = MovieContract.MovieEntry._ID1 + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
                 return updateTheatre(uri, contentValues, selection, selectionArgs);
+            case SHOWS:
+                return updateShows(uri, contentValues, selection, selectionArgs);
+            case SHOWS_ID:
+                // For the MOVIE_ID code, extract out the ID from the URI,
+                // so we know which row to update. Selection will be "_id=?" and selection
+                // arguments will be a String array containing the actual ID.
+                selection = MovieContract.MovieEntry._ID2 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updateShows(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
@@ -378,6 +452,52 @@ public class MovieProvider extends ContentProvider {
         return rowsUpdated;
     }
 
+    private int updateShows(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // If the {@link MovieEntry#COLUMN_MOVIE_NAME} key is present,
+        // check that the name value is not null.
+
+        // If the {@link MovieEntry#COLUMN_MOVIE_WEIGHT} key is present,
+        // check that the weight value is valid.
+        if (values.containsKey(MovieEntry._ID21)) {
+            // Check that the weight is greater than or equal to 0 kg
+            Integer weight = values.getAsInteger(MovieEntry._ID21);
+            if (weight != null && weight < 0) {
+                throw new IllegalArgumentException("SHOWS requires valid movie id");
+            }
+        }
+        if (values.containsKey(MovieEntry._ID31)) {
+            // Check that the weight is greater than or equal to 0 kg
+            Integer weight = values.getAsInteger(MovieEntry._ID31);
+            if (weight != null && weight < 0) {
+                throw new IllegalArgumentException("SHOWS requires valid shows id");
+            }
+        }
+
+        // No need to check the breed, any value is valid (including null).
+
+        // If there are no values to update, then don't try to update the database
+        if (values.size() == 0) {
+            return 0;
+        }
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Perform the update on the database and get the number of rows affected
+        int rowsUpdated = database.update(MovieEntry.TABLE2_NAME, values, selection, selectionArgs);
+        if(rowsUpdated==0)
+            throw new IllegalArgumentException("not exist in other tables");
+
+        // If 1 or more rows were updated, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // Return the number of rows updated
+        return rowsUpdated;
+    }
+
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         // Get writeable database
@@ -408,6 +528,16 @@ public class MovieProvider extends ContentProvider {
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
                 rowsDeleted = database.delete(MovieEntry.TABLE1_NAME, selection, selectionArgs);
                 break;
+            case SHOWS:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(MovieEntry.TABLE2_NAME, selection, selectionArgs);
+                break;
+            case SHOWS_ID:
+                // Delete a single row given by the ID in the URI
+                selection = MovieContract.MovieEntry._ID2 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(MovieEntry.TABLE2_NAME, selection, selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
@@ -434,6 +564,10 @@ public class MovieProvider extends ContentProvider {
                 return MovieContract.MovieEntry.CONTENT_LIST_TYPE2;
             case THEATRE_ID:
                 return MovieContract.MovieEntry.CONTENT_ITEM_TYPE2;
+            case SHOWS:
+                return MovieContract.MovieEntry.CONTENT_LIST_TYPE3;
+            case SHOWS_ID:
+                return MovieContract.MovieEntry.CONTENT_ITEM_TYPE3;
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }

@@ -38,7 +38,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CatalogActivity" />
+                android:value=".MainActivity" />
             />
         </activity>
         <activity android:name=".TheatreActivity"
@@ -46,7 +46,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CatalogActivity" />
+                android:value=".MainActivity" />
             />
         </activity>
 
@@ -56,6 +56,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TheatreActivity" />
+            />
+        </activity>
+
+        <activity android:name=".ShowsEditorActivity"
+            android:label="Add show"
+            android:parentActivityName=".ShowsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowsActivity" />
             />
         </activity>
 

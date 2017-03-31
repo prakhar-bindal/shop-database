@@ -33,6 +33,7 @@ public final class MovieContract {
      */
     public static final String PATH_PETS = "pets2";
     public static final String PATH_THEATRES = "theatres2";
+    public static final String PATH_SHOWS = "shows2";
 
     public static abstract class MovieEntry implements BaseColumns {
 
@@ -45,12 +46,15 @@ public final class MovieContract {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
         public static final Uri CONTENT_URI2 = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_THEATRES);
+        public static final Uri CONTENT_URI3 = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SHOWS);
 
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PETS;
 
         public static final String CONTENT_LIST_TYPE2 =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_THEATRES;
+        public static final String CONTENT_LIST_TYPE3 =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SHOWS;
 
         /**
          * The MIME type of the {@link #CONTENT_URI} for a single pet.
@@ -59,6 +63,8 @@ public final class MovieContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PETS;
         public static final String CONTENT_ITEM_TYPE2 =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_THEATRES;
+        public static final String CONTENT_ITEM_TYPE3 =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SHOWS;
 
         public static final String TABLE_NAME="movie";
         public static final String _ID=BaseColumns._ID;
@@ -83,9 +89,10 @@ public final class MovieContract {
         public static final String COLUMN_ADDRESS = "address";
         public static final String COLUMN_NUM_OF_SCREENS = "screens";
 //
-//        public static final String TABLE2_NAME="shows";
-//        public static final String _ID21="id from movie";
-//        public static final String _ID31="id from theatres";
+        public static final String TABLE2_NAME="shows";
+        public static final String _ID2=BaseColumns._ID;
+        public static final String _ID21="id_from_movie";
+        public static final String _ID31="id_from_theatres";
 
 
 
