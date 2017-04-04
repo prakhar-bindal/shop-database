@@ -94,6 +94,21 @@ public final class MovieContract {
         public static final String _ID21="id_from_movie";
         public static final String _ID31="id_from_theatres";
 
+        public static final String TABLE3_NAME="buys";
+        public static final String _ID3=BaseColumns._ID;
+        public static final String _IDshows="id_from_shows";
+        public static final String _IDtheatres="id_from_theatres";
+        public static final String _IDMOVIES="id_from_movie";
+
+        public static final String TABLE4_NAME="customer";
+        public static final String _ID4=BaseColumns._ID;
+        public static final String COLUMN_CUSTOMER_NAME="customer_address";
+        public static final String COLUMN_CUSTOMER_ADDRESS="customer_address";
+
+
+
+
+
 
 
 

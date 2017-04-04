@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView movieTextView = (TextView) findViewById(R.id.circle_movies);
         final TextView theatresTextView = (TextView) findViewById(R.id.circle_theatres);
         final TextView distributerTextView = (TextView) findViewById(R.id.circle_distributers);
+        final TextView customerTextView = (TextView) findViewById(R.id.circle_customer);
+        final TextView buysTextView = (TextView) findViewById(R.id.circle_buys);
 
         movieTextView.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -37,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent launchDistributerActivity = new Intent(MainActivity.this,ShowsActivity.class);
+                startActivity(launchDistributerActivity);
+            }
+        });
+        customerTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent launchDistributerActivity = new Intent(MainActivity.this,CustomerActivity.class);
+                startActivity(launchDistributerActivity);
+            }
+        });
+        buysTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent launchDistributerActivity = new Intent(MainActivity.this,BuysActivity.class);
                 startActivity(launchDistributerActivity);
             }
         });

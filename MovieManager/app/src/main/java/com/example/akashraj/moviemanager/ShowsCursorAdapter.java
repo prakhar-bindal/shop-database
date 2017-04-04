@@ -55,17 +55,22 @@ public class ShowsCursorAdapter  extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textname = (TextView) view.findViewById(R.id.id1);
         TextView textsummary = (TextView) view.findViewById(R.id.id2);
+        TextView textid = (TextView) view.findViewById(R.id.id);
 
         int ProducerColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry._ID21);
         int idColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry._ID31);
+        int primeColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry._ID2);
         // Extract properties from cursor
 
         int id = cursor.getInt(idColumnIndex);
         String idyo= Integer.toString(id);
         int length = cursor.getInt(ProducerColumnIndex);
         String run = Integer.toString(length);
+        int prime = cursor.getInt((primeColumnIndex));
+        String prim = Integer.toString(prime);
         //  String run = toString(length);
         // Populate fields with extracted properties
+        textid.setText(prim);
         textname.setText(run);
         textsummary.setText(idyo);
 
