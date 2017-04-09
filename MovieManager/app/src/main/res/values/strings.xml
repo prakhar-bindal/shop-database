@@ -9,7 +9,7 @@
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
 
     <!-- Label for overflow menu option that deletes all pet data in the app [CHAR LIMIT=20] -->
-    <string name="action_delete_all_entries">Delete All Movies</string>
+    <string name="action_delete_all_entries">Delete All</string>
 
     <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
     <string name="empty_view_title_text">It\'s a bit lonely here...</string>
@@ -30,47 +30,31 @@
     <string name="action_delete">Delete</string>
 
     <!-- Toast message in editor when new pet has been successfully inserted [CHAR LIMIT=NONE] -->
-    <string name="editor_insert_pet_successful">Movie saved</string>
+    <string name="editor_insert_pet_successful">saved</string>
 
     <!-- Toast message in editor when new pet has failed to be inserted [CHAR LIMIT=NONE] -->
-    <string name="editor_insert_pet_failed">Error with saving Movie</string>
+    <string name="editor_insert_pet_failed">Error with saving</string>
 
     <!-- Toast message in editor when current pet was successfully updated [CHAR LIMIT=NONE] -->
-    <string name="editor_update_pet_successful">Movie updated</string>
+    <string name="editor_update_pet_successful">updated</string>
 
     <!-- Toast message in editor when current pet has failed to be updated [CHAR LIMIT=NONE] -->
-    <string name="editor_update_pet_failed">Error with updating Movie</string>
+    <string name="editor_update_pet_failed">Error with updating</string>
 
     <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
     <string name="category_overview">Overview</string>
 
     <!-- Label for gender information in the editor [CHAR LIMIT=30] -->
-    <string name="category_gender">Gender</string>
-
-    <!-- Label for measurement information in the editor [CHAR LIMIT=30] -->
-    <string name="category_measurement">Measurement</string>
-
-    <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
-    <string name="hint_pet_name">Name</string>
-
-    <!-- Text hint for breed field in the editor [CHAR LIMIT=30] -->
-    <string name="hint_pet_breed">Breed</string>
-
-    <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
-    <string name="hint_pet_weight">Weight</string>
-
-    <!-- Units for weight of the pet (kilograms) [CHAR LIMIT=5] -->
-    <string name="unit_pet_weight">kg</string>
 
     <!-- Label for dropdown menu option if the pet's gender is unknown [CHAR LIMIT=20] -->
     <string name="gender_unknown">Unknown</string>
 
-    <string name="editor_delete_pet_successful">Movie deleted</string>
+    <string name="editor_delete_pet_successful">deleted</string>
 
     <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
-    <string name="editor_delete_pet_failed">Error with deleting Movie</string>
+    <string name="editor_delete_pet_failed">Error with deleting</string>
     <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
-    <string name="delete_dialog_msg">Delete this Movie?</string>
+    <string name="delete_dialog_msg">Delete this?</string>
 
     <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
     <string name="delete">Delete</string>
@@ -88,6 +72,4 @@
     <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
     <string name="keep_editing">Keep Editing</string>
 
-    <!-- Label for dropdown menu option if the pet is female [CHAR LIMIT=20] -->
-    <string name="gender_female">Female</string>
 </resources>

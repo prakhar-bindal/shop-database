@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".EditorActivity">
+
+    <!-- Overview category -->
+    <LinearLayout
+        android:id="@+id/container_measurement1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="ID of Movie"
+            style="@style/CategoryStyle"
+            android:layout_width="16dp" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:paddingLeft="4dp">
+
+            <!-- Weight field -->
+            <EditText
+                android:id="@+id/edit_buys_movie"
+                android:hint="ID"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
+
+            <!-- Units for weight (kg) -->
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Gender category -->
+
+
+    <!-- Measurement category -->
+    <LinearLayout
+        android:id="@+id/container_measuremeent2"
+        android:paddingTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="ID of Theatre"
+            style="@style/CategoryStyle"
+            android:layout_width="16dp" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:paddingLeft="4dp">
+
+            <!-- Weight field -->
+            <EditText
+                android:id="@+id/edit_buys_theatres"
+                android:hint="ID"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
+
+            <!-- Units for weight (kg) -->
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/container_measurement2"
+        android:paddingTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="ID of Shows"
+            style="@style/CategoryStyle"
+            android:layout_width="16dp" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:paddingLeft="4dp">
+
+            <!-- Weight field -->
+            <EditText
+                android:id="@+id/edit_buys_shows"
+                android:hint="ID"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
+
+            <!-- Units for weight (kg) -->
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/container_measurwement2"
+        android:paddingTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="ID of Customer"
+            style="@style/CategoryStyle"
+            android:layout_width="16dp" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:paddingLeft="4dp">
+
+            <!-- Weight field -->
+            <EditText
+                android:id="@+id/edit_buys_customer"
+                android:hint="ID"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
+
+            <!-- Units for weight (kg) -->
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

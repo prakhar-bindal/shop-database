@@ -32,7 +32,11 @@ public class MovieProvider extends ContentProvider {
     private static final int PETS = 100;
     private static final int THEATRES =200;
     private static final int THEATRE_ID=201;
+    private static final int CUSTOMER= 400;
+    private static final int BUYS= 500;
     private static final int SHOWS= 300;
+    private static final int CUSTOMER_ID=401;
+    private static final int BUYS_ID=501;
     private static final int SHOWS_ID=301;
 
     private static final int PET_ID = 101;
@@ -52,6 +56,8 @@ public class MovieProvider extends ContentProvider {
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS, PETS);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_THEATRES,THEATRES);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_SHOWS,SHOWS);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_CUSTOMER,CUSTOMER);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_BUYS,BUYS);
 
         // The content URI of the form "content://com.example.android.MOVIEs/MOVIEs/#" will map to the
         // integer code {@link #MOVIE_ID}. This URI is used to provide access to ONE single row
@@ -63,6 +69,8 @@ public class MovieProvider extends ContentProvider {
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS + "/#", PET_ID);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_THEATRES + "/#", THEATRE_ID);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_SHOWS + "/#", SHOWS_ID);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_CUSTOMER + "/#", CUSTOMER_ID);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_BUYS + "/#", BUYS_ID);
     }
     private MovieDbHelper mDbHelper;
 
@@ -136,20 +144,40 @@ public class MovieProvider extends ContentProvider {
                 break;
 
             case SHOWS_ID:
-                // For the MOVIE_ID code, extract out the ID from the URI.
-                // For an example URI such as "content://com.example.android.MOVIEs/MOVIEs/3",
-                // the selection will be "_id=?" and the selection argument will be a
-                // String array containing the actual ID of 3 in this case.
-                //
-                // For every "?" in the selection, we need to have an element in the selection
-                // arguments that will fill in the "?". Since we have 1 question mark in the
-                // selection, we have 1 String in the selection arguments' String array.
+
                 selection = MovieEntry._ID2 + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
 
-                // This will perform a query on the MOVIEs table where the _id equals 3 to return a
-                // Cursor containing that row of the table.
                 cursor = database.query(MovieEntry.TABLE2_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+            case CUSTOMER:
+                cursor = database.query(MovieContract.MovieEntry.TABLE4_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+            case CUSTOMER_ID:
+
+                selection = MovieEntry._ID4 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+
+                cursor = database.query(MovieEntry.TABLE4_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+
+            case BUYS:
+                cursor = database.query(MovieContract.MovieEntry.TABLE3_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+            case BUYS_ID:
+
+                selection = MovieEntry._ID3 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+
+                cursor = database.query(MovieEntry.TABLE3_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
 
@@ -176,6 +204,10 @@ public class MovieProvider extends ContentProvider {
                 return inserttheatre(uri,contentValues);
             case SHOWS:
                 return insertshows(uri,contentValues);
+            case CUSTOMER:
+                return insertcustomer(uri,contentValues);
+            case BUYS:
+                return insertbuy(uri,contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
@@ -302,6 +334,51 @@ public class MovieProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri, id);
     }
 
+    private Uri insertcustomer(Uri uri, ContentValues values) {
+        // Check that the name is not null
+
+        // No need to check the breed, any value is valid (including null).
+
+        // Get writeable database
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Insert the new MOVIE with the given values
+        long id = database.insert(MovieContract.MovieEntry.TABLE4_NAME, null, values);
+        // If the ID is -1, then the insertion failed. Log an error and return null.
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+            return null;
+        }
+
+        // Notify all listeners that the data has changed for the MOVIE content URI
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // Return the new URI with the ID (of the newly inserted row) appended at the end
+        return ContentUris.withAppendedId(uri, id);
+    }
+    private Uri insertbuy(Uri uri, ContentValues values) {
+        // Check that the name is not null
+
+        // No need to check the breed, any value is valid (including null).
+
+        // Get writeable database
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Insert the new MOVIE with the given values
+        long id = database.insert(MovieContract.MovieEntry.TABLE3_NAME, null, values);
+        // If the ID is -1, then the insertion failed. Log an error and return null.
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+            return null;
+        }
+
+        // Notify all listeners that the data has changed for the MOVIE content URI
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // Return the new URI with the ID (of the newly inserted row) appended at the end
+        return ContentUris.withAppendedId(uri, id);
+    }
+
     @Override
     public int update(Uri uri, ContentValues contentValues, String selection,
                       String[] selectionArgs) {
@@ -334,6 +411,24 @@ public class MovieProvider extends ContentProvider {
                 selection = MovieContract.MovieEntry._ID2 + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
                 return updateShows(uri, contentValues, selection, selectionArgs);
+            case CUSTOMER:
+                return updatecustomer(uri, contentValues, selection, selectionArgs);
+            case CUSTOMER_ID:
+                // For the MOVIE_ID code, extract out the ID from the URI,
+                // so we know which row to update. Selection will be "_id=?" and selection
+                // arguments will be a String array containing the actual ID.
+                selection = MovieContract.MovieEntry._ID4 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updatecustomer(uri, contentValues, selection, selectionArgs);
+            case BUYS:
+                return updatebuy(uri, contentValues, selection, selectionArgs);
+            case BUYS_ID:
+                // For the MOVIE_ID code, extract out the ID from the URI,
+                // so we know which row to update. Selection will be "_id=?" and selection
+                // arguments will be a String array containing the actual ID.
+                selection = MovieContract.MovieEntry._ID3 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updatebuy(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
@@ -497,6 +592,44 @@ public class MovieProvider extends ContentProvider {
         // Return the number of rows updated
         return rowsUpdated;
     }
+    private int updatecustomer(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // If the {@link MovieEntry#COLUMN_MOVIE_NAME} key is present,
+        // check that the name value is not null.
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Perform the update on the database and get the number of rows affected
+        int rowsUpdated = database.update(MovieEntry.TABLE4_NAME, values, selection, selectionArgs);
+
+        // If 1 or more rows were updated, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // Return the number of rows updated
+        return rowsUpdated;
+    }
+    private int updatebuy(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // If the {@link MovieEntry#COLUMN_MOVIE_NAME} key is present,
+        // check that the name value is not null.
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Perform the update on the database and get the number of rows affected
+        int rowsUpdated = database.update(MovieEntry.TABLE3_NAME, values, selection, selectionArgs);
+
+        // If 1 or more rows were updated, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // Return the number of rows updated
+        return rowsUpdated;
+    }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -538,6 +671,26 @@ public class MovieProvider extends ContentProvider {
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
                 rowsDeleted = database.delete(MovieEntry.TABLE2_NAME, selection, selectionArgs);
                 break;
+            case CUSTOMER:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(MovieEntry.TABLE4_NAME, selection, selectionArgs);
+                break;
+            case CUSTOMER_ID:
+                // Delete a single row given by the ID in the URI
+                selection = MovieContract.MovieEntry._ID4 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(MovieEntry.TABLE4_NAME, selection, selectionArgs);
+                break;
+            case BUYS:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(MovieEntry.TABLE3_NAME, selection, selectionArgs);
+                break;
+            case BUYS_ID:
+                // Delete a single row given by the ID in the URI
+                selection = MovieContract.MovieEntry._ID3 + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(MovieEntry.TABLE3_NAME, selection, selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
@@ -568,6 +721,14 @@ public class MovieProvider extends ContentProvider {
                 return MovieContract.MovieEntry.CONTENT_LIST_TYPE3;
             case SHOWS_ID:
                 return MovieContract.MovieEntry.CONTENT_ITEM_TYPE3;
+            case CUSTOMER:
+                return MovieContract.MovieEntry.CONTENT_LIST_TYPE4;
+            case CUSTOMER_ID:
+                return MovieContract.MovieEntry.CONTENT_ITEM_TYPE4;
+            case BUYS:
+                return MovieContract.MovieEntry.CONTENT_LIST_TYPE5;
+            case BUYS_ID:
+                return MovieContract.MovieEntry.CONTENT_ITEM_TYPE5;
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }

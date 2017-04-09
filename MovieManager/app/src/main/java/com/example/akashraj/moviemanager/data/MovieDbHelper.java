@@ -19,7 +19,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = MovieDbHelper.class.getSimpleName();
 
     /** Name of the database file */
-    private static final String DATABASE_NAME = "MOVIE1234567890112345678910123.db";
+    private static final String DATABASE_NAME = "MOVIEMANAGER1.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
@@ -59,26 +59,6 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 + MovieContract.MovieEntry.COLUMN_PRODUCER_NAME + " TEXT NOT NULL, "
                 + MovieContract.MovieEntry.COLUMN_RUN_TIME + " INTEGER NOT NULL DEFAULT 0);";
 
-//        String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + MovieEntry.TABLE_NAME + " ("
-//                + MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-//                + MovieEntry.COLUMN_PET_NAME + " TEXT NOT NULL, "
-//                + MovieEntry.COLUMN_PET_BREED + " TEXT, "
-//                + MovieEntry.COLUMN_PET_GENDER + " INTEGER NOT NULL, "
-//                + MovieEntry.COLUMN_PET_WEIGHT + " INTEGER NOT NULL DEFAULT 0);";
-
-        // Execute the SQL statement
-
-
-//        db.execSQL(SQL_CREATE_PETS_TABLE);
-        
-//        String SQL_CREATE_MOVIE_TABLE =  "CREATE TABLE " + MovieEntry.TABLE_NAME + " ("
-//                + MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-//                + MovieEntry.COLUMN_MOVIE_NAME + " TEXT NOT NULL, "
-//                + MovieEntry.COLUMN_DIRECTOR_NAME + " TEXT, "
-//                + MovieEntry.COLUMN_PRODUCER_NAME + " TEXT, "
-//                + MovieEntry.COLUMN_RUN_TIME + " INTEGER NOT NULL DEFAULT 0);";
-//
-//        // Execute the SQL statement
         db.execSQL(SQL_CREATE_MOVIE_TABLE);
         
 //
@@ -99,7 +79,30 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 + " FOREIGN KEY ("+MovieEntry._ID31+") REFERENCES "+MovieEntry.TABLE1_NAME+"("+MovieEntry._ID1+")" + " ON DELETE CASCADE ON UPDATE CASCADE);";
 
         db.execSQL(SQL_CREATE_SHOWS_TABLE);
-   }
+
+        String SQL_CREATE_CUSTOMER_TABLE =  "CREATE TABLE " + MovieEntry.TABLE4_NAME + " ("
+                + MovieEntry._ID4 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MovieEntry.COLUMN_CUSTOMER_NAME + " TEXT NOT NULL, "
+                + MovieEntry.COLUMN_CUSTOMER_ADDRESS + " TEXT NOT NULL, "
+                + MovieEntry.COLUMN_CUSTOMER_PHONE + " INTEGER NOT NULL DEFAULT 0);";
+//
+//        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_CUSTOMER_TABLE);
+
+        String SQL_CREATE_BUYS_TABLE =  "CREATE TABLE " + MovieEntry.TABLE3_NAME + " ("
+                + MovieEntry._ID3 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + MovieEntry._IDshows + " INTEGER, "
+                + MovieEntry._IDtheatres + " INTEGER, "
+                + MovieEntry._IDCUSTOMER + " INTEGER, "
+                + MovieEntry._IDMOVIES + " INTEGER, "
+                + " FOREIGN KEY ("+MovieEntry._IDshows+") REFERENCES "+MovieEntry.TABLE2_NAME+"("+MovieEntry._ID2+")" + " ON DELETE CASCADE ON UPDATE CASCADE ,"
+                + " FOREIGN KEY ("+MovieEntry._IDMOVIES+") REFERENCES "+MovieEntry.TABLE_NAME+"("+MovieEntry._ID+")" + " ON DELETE CASCADE ON UPDATE CASCADE ,"
+                + " FOREIGN KEY ("+MovieEntry._IDCUSTOMER+") REFERENCES "+MovieEntry.TABLE4_NAME+"("+MovieEntry._ID4+")" + " ON DELETE CASCADE ON UPDATE CASCADE ,"
+                + " FOREIGN KEY ("+MovieEntry._IDtheatres+") REFERENCES "+MovieEntry.TABLE1_NAME+"("+MovieEntry._ID1+")" + " ON DELETE CASCADE ON UPDATE CASCADE);";
+
+        db.execSQL(SQL_CREATE_BUYS_TABLE);
+
+    }
 
     /**
      * This is called when the database needs to be upgraded.

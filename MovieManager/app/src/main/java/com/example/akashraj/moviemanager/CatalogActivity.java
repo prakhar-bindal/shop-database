@@ -48,10 +48,14 @@ import com.example.akashraj.moviemanager.data.MovieContract.MovieEntry;
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /**
+     * Identifier for the pet data loader
+     */
     private static final int PET_LOADER = 0;
 
-    /** Adapter for the ListView */
+    /**
+     * Adapter for the ListView
+     */
     PetCursorAdapter mCursorAdapter;
 
     @Override
@@ -110,7 +114,8 @@ public class CatalogActivity extends AppCompatActivity implements
 
     /**
      * Helper method to insert hardcoded pet data into the database. For debugging purposes only.
-//     */
+     * //
+     */
 //    private void insertPet() {
 //        // Create a ContentValues object where column names are the keys,
 //        // and Toto's pet attributes are the values.
@@ -126,7 +131,6 @@ public class CatalogActivity extends AppCompatActivity implements
 //        // Receive the new content URI that will allow us to access Toto's data in the future.
 //        Uri newUri = getContentResolver().insert(MovieEntry.CONTENT_URI, values);
 //    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.
@@ -140,9 +144,6 @@ public class CatalogActivity extends AppCompatActivity implements
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
-            case R.id.action_insert_dummy_data:
-                //insertPet();
-                return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
                 deleteAllPets();
@@ -186,6 +187,7 @@ public class CatalogActivity extends AppCompatActivity implements
         int rowsDeleted = getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI, null, null);
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
     }
+}
 
 
 
@@ -333,4 +335,4 @@ public class CatalogActivity extends AppCompatActivity implements
 //        int rowsDeleted = getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI, null, null);
 //        Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
 //    }
-}
+

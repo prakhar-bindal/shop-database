@@ -34,6 +34,8 @@ public final class MovieContract {
     public static final String PATH_PETS = "pets2";
     public static final String PATH_THEATRES = "theatres2";
     public static final String PATH_SHOWS = "shows2";
+    public static final String PATH_CUSTOMER = "customer2";
+    public static final String PATH_BUYS = "buys2";
 
     public static abstract class MovieEntry implements BaseColumns {
 
@@ -47,6 +49,8 @@ public final class MovieContract {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
         public static final Uri CONTENT_URI2 = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_THEATRES);
         public static final Uri CONTENT_URI3 = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SHOWS);
+        public static final Uri CONTENT_URI4 = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_CUSTOMER);
+        public static final Uri CONTENT_URI5 = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_BUYS);
 
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PETS;
@@ -55,6 +59,11 @@ public final class MovieContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_THEATRES;
         public static final String CONTENT_LIST_TYPE3 =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SHOWS;
+
+        public static final String CONTENT_LIST_TYPE4 =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CUSTOMER;
+        public static final String CONTENT_LIST_TYPE5 =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BUYS;
 
         /**
          * The MIME type of the {@link #CONTENT_URI} for a single pet.
@@ -65,6 +74,10 @@ public final class MovieContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_THEATRES;
         public static final String CONTENT_ITEM_TYPE3 =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SHOWS;
+        public static final String CONTENT_ITEM_TYPE4 =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CUSTOMER;
+        public static final String CONTENT_ITEM_TYPE5 =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BUYS;
 
         public static final String TABLE_NAME="movie";
         public static final String _ID=BaseColumns._ID;
@@ -99,11 +112,13 @@ public final class MovieContract {
         public static final String _IDshows="id_from_shows";
         public static final String _IDtheatres="id_from_theatres";
         public static final String _IDMOVIES="id_from_movie";
+        public static final String _IDCUSTOMER="id_from_customer";
 
         public static final String TABLE4_NAME="customer";
         public static final String _ID4=BaseColumns._ID;
-        public static final String COLUMN_CUSTOMER_NAME="customer_address";
+        public static final String COLUMN_CUSTOMER_NAME="customer_name";
         public static final String COLUMN_CUSTOMER_ADDRESS="customer_address";
+        public static final String COLUMN_CUSTOMER_PHONE="phone_number";
 
 
 

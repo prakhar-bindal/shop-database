@@ -49,6 +49,22 @@
                 android:value=".MainActivity" />
             />
         </activity>
+        <activity android:name=".CustomerActivity"
+            android:label="Customer"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+            />
+        </activity>
+        <activity android:name=".BuysActivity"
+            android:label="Buys"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+            />
+        </activity>
 
         <activity android:name=".TheatreEditorActivity"
             android:label="Add movie"
@@ -61,6 +77,22 @@
 
         <activity android:name=".ShowsEditorActivity"
             android:label="Add show"
+            android:parentActivityName=".ShowsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowsActivity" />
+            />
+        </activity>
+        <activity android:name=".CustomerEditorActivity"
+            android:label="Add Customer"
+            android:parentActivityName=".ShowsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowsActivity" />
+            />
+        </activity>
+        <activity android:name=".BuysEditorActivity"
+            android:label="Add Buyer"
             android:parentActivityName=".ShowsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
