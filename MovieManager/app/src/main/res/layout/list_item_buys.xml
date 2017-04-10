@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(movies)"
+            android:text="(movie ID)"
             android:fontFamily="sans-serif"
             android:layout_below="@+id/id1"
             android:textAppearance="?android:textAppearanceSmall"
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="(theatres)"
+            android:text="(theatre ID)"
             android:layout_below="@+id/id2"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="#AEB6BD" />
@@ -97,7 +97,7 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="(customer)"
+               android:text="(customer ID)"
                android:fontFamily="sans-serif"
                android:layout_below="@+id/id3"
                android:textAppearance="?android:textAppearanceSmall"
@@ -122,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="(shows)"
+            android:text="(show ID)"
             android:layout_below="@+id/id4"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="#AEB6BD" />

@@ -17,7 +17,7 @@ import com.example.akashraj.moviemanager.data.MovieContract;
 public class TheatreCursorAdapter extends CursorAdapter {
 
     /**
-     * Constructs a new {@link PetCursorAdapter}.
+     * Constructs a new {@link MovieCursorAdapter}.
      *
      * @param context The context
      * @param c       The cursor from which to get the data.
@@ -41,8 +41,8 @@ public class TheatreCursorAdapter extends CursorAdapter {
     }
 
     /**
-     * This method binds the pet data (in the current row pointed to by cursor) to the given
-     * list item layout. For example, the name for the current pet can be set on the name TextView
+     * This method binds the movie data (in the current row pointed to by cursor) to the given
+     * list item layout. For example, the name for the current movie can be set on the name TextView
      * in the list item layout.
      *
      * @param view    Existing view, returned earlier by newView() method
@@ -76,8 +76,8 @@ public class TheatreCursorAdapter extends CursorAdapter {
 
 
 
-//        int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PET_NAME);
-//        int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PET_BREED);
+//        int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_movie_NAME);
+//        int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_movie_BREED);
 //        // Extract properties from cursor
 //        String name = cursor.getString(nameColumnIndex);
 //        String summary = cursor.getString(summaryColumnIndex);

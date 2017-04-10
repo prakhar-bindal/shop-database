@@ -29,7 +29,7 @@ public class MovieProvider extends ContentProvider {
     public static final String LOG_TAG = MovieProvider.class.getSimpleName();
 
 
-    private static final int PETS = 100;
+    private static final int MOVIES = 100;
     private static final int THEATRES =200;
     private static final int THEATRE_ID=201;
     private static final int CUSTOMER= 400;
@@ -39,7 +39,7 @@ public class MovieProvider extends ContentProvider {
     private static final int BUYS_ID=501;
     private static final int SHOWS_ID=301;
 
-    private static final int PET_ID = 101;
+    private static final int MOVIE_ID = 101;
 
 
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -53,7 +53,7 @@ public class MovieProvider extends ContentProvider {
         // The content URI of the form "content://com.example.android.MOVIEs/MOVIEs" will map to the
         // integer code {@link #MOVIES}. This URI is used to provide access to MULTIPLE rows
         // of the MOVIEs table.
-        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS, PETS);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_MOVIES, MOVIES);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_THEATRES,THEATRES);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_SHOWS,SHOWS);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_CUSTOMER,CUSTOMER);
@@ -66,7 +66,7 @@ public class MovieProvider extends ContentProvider {
         // In this case, the "#" wildcard is used where "#" can be substituted for an integer.
         // For example, "content://com.example.android.MOVIEs/MOVIEs/3" matches, but
         // "content://com.example.android.MOVIEs/MOVIEs" (without a number at the end) doesn't match.
-        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS + "/#", PET_ID);
+        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_MOVIES + "/#", MOVIE_ID);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_THEATRES + "/#", THEATRE_ID);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_SHOWS + "/#", SHOWS_ID);
         sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_CUSTOMER + "/#", CUSTOMER_ID);
@@ -92,14 +92,14 @@ public class MovieProvider extends ContentProvider {
         // Figure out if the URI matcher can match the URI to a specific code
         int match = sUriMatcher.match(uri);
         switch (match) {
-            case PETS:
+            case MOVIES:
                 // For the MOVIES code, query the MOVIEs table directly with the given
                 // projection, selection, selection arguments, and sort order. The cursor
                 // could contain multiple rows of the MOVIEs table.
                 cursor = database.query(MovieContract.MovieEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
-            case PET_ID:
+            case MOVIE_ID:
                 // For the MOVIE_ID code, extract out the ID from the URI.
                 // For an example URI such as "content://com.example.android.MOVIEs/MOVIEs/3",
                 // the selection will be "_id=?" and the selection argument will be a
@@ -198,7 +198,7 @@ public class MovieProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues contentValues) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
-            case PETS:
+            case MOVIES:
                 return insertmovie(uri, contentValues);
             case THEATRES:
                 return inserttheatre(uri,contentValues);
@@ -384,9 +384,9 @@ public class MovieProvider extends ContentProvider {
                       String[] selectionArgs) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
-            case PETS:
+            case MOVIES:
                 return updateMOVIE(uri, contentValues, selection, selectionArgs);
-            case PET_ID:
+            case MOVIE_ID:
                 // For the MOVIE_ID code, extract out the ID from the URI,
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
@@ -641,11 +641,11 @@ public class MovieProvider extends ContentProvider {
 
         final int match = sUriMatcher.match(uri);
         switch (match) {
-            case PETS:
+            case MOVIES:
                 // Delete all rows that match the selection and selection args
                 rowsDeleted = database.delete(MovieEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case PET_ID:
+            case MOVIE_ID:
                 // Delete a single row given by the ID in the URI
                 selection = MovieContract.MovieEntry._ID + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
@@ -709,9 +709,9 @@ public class MovieProvider extends ContentProvider {
     public String getType(Uri uri) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
-            case PETS:
+            case MOVIES:
                 return MovieContract.MovieEntry.CONTENT_LIST_TYPE;
-            case PET_ID:
+            case MOVIE_ID:
                 return MovieContract.MovieEntry.CONTENT_ITEM_TYPE;
             case THEATRES:
                 return MovieContract.MovieEntry.CONTENT_LIST_TYPE2;
@@ -764,7 +764,7 @@ public class MovieProvider extends ContentProvider {
 //        // The content URI of the form "content://com.example.android.pets/pets" will map to the
 //        // integer code {@link #PETS}. This URI is used to provide access to MULTIPLE rows
 //        // of the pets table.
-//        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS, PETS);
+//        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_MOVIES, PETS);
 //
 //        // The content URI of the form "content://com.example.android.pets/pets/#" will map to the
 //        // integer code {@link #PET_ID}. This URI is used to provide access to ONE single row
@@ -773,7 +773,7 @@ public class MovieProvider extends ContentProvider {
 //        // In this case, the "#" wildcard is used where "#" can be substituted for an integer.
 //        // For example, "content://com.example.android.pets/pets/3" matches, but
 //        // "content://com.example.android.pets/pets" (without a number at the end) doesn't match.
-//        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_PETS + "/#", PET_ID);
+//        sUriMatcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.PATH_MOVIES + "/#", PET_ID);
 //    }
 //
 //    /**

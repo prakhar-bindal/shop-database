@@ -17,7 +17,7 @@ import com.example.akashraj.moviemanager.data.MovieContract;
 public class BuysCursorAdapter extends CursorAdapter {
 
     /**
-     * Constructs a new {@link PetCursorAdapter}.
+     * Constructs a new {@link MovieCursorAdapter}.
      *
      * @param context The context
      * @param c       The cursor from which to get the data.

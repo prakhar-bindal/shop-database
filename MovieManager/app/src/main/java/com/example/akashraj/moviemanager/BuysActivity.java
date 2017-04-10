@@ -27,9 +27,9 @@ public class BuysActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
-     * Identifier for the pet data loader
+     * Identifier for the movie data loader
      */
-    private static final int PET_LOADER = 0;
+    private static final int MOVIE_LOADER = 0;
 
     /**
      * Adapter for the ListView
@@ -51,52 +51,52 @@ public class BuysActivity extends AppCompatActivity implements
             }
         });
 
-        // Find the ListView which will be populated with the pet data
-        ListView petListView = (ListView) findViewById(R.id.list_view_pet);
+        // Find the ListView which will be populated with the movie data
+        ListView movieListView = (ListView) findViewById(R.id.list_view_movie);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
-        petListView.setEmptyView(emptyView);
+        movieListView.setEmptyView(emptyView);
 
-        // Setup an Adapter to create a list item for each row of pet data in the Cursor.
-        // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
+        // Setup an Adapter to create a list item for each row of movie data in the Cursor.
+        // There is no movie data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new BuysCursorAdapter(this, null);
-        petListView.setAdapter(mCursorAdapter);
+        movieListView.setAdapter(mCursorAdapter);
 
         // Setup the item click listener
-        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        movieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(BuysActivity.this, BuysEditorActivity.class);
 
-                // Form the content URI that represents the specific pet that was clicked on,
+                // Form the content URI that represents the specific movie that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
                 // {@link MovieEntry#CONTENT_URI}.
-                // For example, the URI would be "content://com.example.android.pets/pets/2"
-                // if the pet with ID 2 was clicked on.
+                // For example, the URI would be "content://com.example.android.movies/movies/2"
+                // if the movie with ID 2 was clicked on.
 
-                Uri currentPetUri = ContentUris.withAppendedId(MovieContract.MovieEntry.CONTENT_URI5, id);
+                Uri currentMovieUri = ContentUris.withAppendedId(MovieContract.MovieEntry.CONTENT_URI5, id);
 
                 // Set the URI on the data field of the intent
-                intent.setData(currentPetUri);
+                intent.setData(currentMovieUri);
 
-                // Launch the {@link EditorActivity} to display the data for the current pet.
+                // Launch the {@link EditorActivity} to display the data for the current movie.
                 startActivity(intent);
             }
         });
 
         // Kick off the loader
-        getLoaderManager().initLoader(PET_LOADER, null, this);
+        getLoaderManager().initLoader(MOVIE_LOADER, null, this);
     }
 
     /**
-     * Helper method to insert hardcoded pet data into the database. For debugging purposes only.
+     * Helper method to insert hardcoded movie data into the database. For debugging purposes only.
      * //
      */
-//    private void insertPet() {
+//    private void insertmovie() {
 //        // Create a ContentValues object where column names are the keys,
-//        // and Toto's pet attributes are the values.
+//        // and Toto's movie attributes are the values.
 //        ContentValues values = new ContentValues();
 //        values.put(MovieContract.MovieEntry.COLUMN_MOVIE_NAME, "3 idots");
 //        values.put(MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME, "Rajkumar Hirani");
@@ -105,7 +105,7 @@ public class BuysActivity extends AppCompatActivity implements
 //
 //        // Insert a new row for Toto into the provider using the ContentResolver.
 //        // Use the {@link MovieEntry#CONTENT_URI} to indicate that we want to insert
-//        // into the pets database table.
+//        // into the movies database table.
 //        // Receive the new content URI that will allow us to access Toto's data in the future.
 //        Uri newUri = getContentResolver().insert(MovieEntry.CONTENT_URI, values);
 //    }
@@ -125,7 +125,7 @@ public class BuysActivity extends AppCompatActivity implements
 
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
-                deleteAllPets();
+                deleteAllMovies();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -152,7 +152,7 @@ public class BuysActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        // Update {@link MovieCursorAdapter} with this new cursor containing updated movie data
         mCursorAdapter.swapCursor(data);
     }
 
@@ -162,8 +162,8 @@ public class BuysActivity extends AppCompatActivity implements
         mCursorAdapter.swapCursor(null);
     }
 
-    private void deleteAllPets() {
+    private void deleteAllMovies() {
         int rowsDeleted = getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI5, null, null);
-        Log.v("BuysActivity", rowsDeleted + " rows deleted from pet database");
+        Log.v("BuysActivity", rowsDeleted + " rows deleted from movie database");
     }
 }

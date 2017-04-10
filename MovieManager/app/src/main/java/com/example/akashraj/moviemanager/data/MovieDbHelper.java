@@ -51,7 +51,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//         Create a String that contains the SQL statement to create the pets table
+//         Create a String that contains the SQL statement to create the movies table
         String SQL_CREATE_MOVIE_TABLE =  "CREATE TABLE " + MovieContract.MovieEntry.TABLE_NAME + " ("
                 + MovieContract.MovieEntry._ID + " INTEGER PRIMARY KEY NOT NULL, "
                 + MovieEntry.COLUMN_MOVIE_NAME + " TEXT NOT NULL, "

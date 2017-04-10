@@ -39,38 +39,38 @@ import android.widget.Toast;
 import com.example.akashraj.moviemanager.data.MovieContract.MovieEntry;
 
 /**
- * Allows user to create a new pet or edit an existing one.
+ * Allows user to create a new movie or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
 
-    private boolean mPetHasChanged = false;
+    private boolean mMovieHasChanged = false;
 
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                        mPetHasChanged = true;
+                        mMovieHasChanged = true;
                         return false;
                     }
             };
 
-    /** Identifier for the pet data loader */
-    private static final int EXISTING_PET_LOADER = 0;
+    /** Identifier for the movie data loader */
+    private static final int EXISTING_MOVIE_LOADER = 0;
 
-    /** Content URI for the existing pet (null if it's a new pet) */
-    private Uri mCurrentPetUri;
+    /** Content URI for the existing movie (null if it's a new movie) */
+    private Uri mCurrentMovieUri;
 
-    /** EditText field to enter the pet's name */
+    /** EditText field to enter the movie's name */
     private EditText mNameEditText;
 
-    /** EditText field to enter the pet's director */
+    /** EditText field to enter the movie's director */
     private EditText mDirectorEditText;
 
     private EditText mProducerEditText;
 
-    /** EditText field to enter the pet's length */
+    /** EditText field to enter the movie's length */
     private EditText mlengthEditText;
     private EditText meditmovieidText;
 
@@ -81,22 +81,22 @@ public class EditorActivity extends AppCompatActivity implements
         setContentView(R.layout.temp);
 
         // Examine the intent that was used to launch this activity,
-        // in order to figure out if we're creating a new pet or editing an existing one.
+        // in order to figure out if we're creating a new movie or editing an existing one.
         Intent intent = getIntent();
-        mCurrentPetUri = intent.getData();
+        mCurrentMovieUri = intent.getData();
 
-        // If the intent DOES NOT contain a pet content URI, then we know that we are
-        // creating a new pet.
-        if (mCurrentPetUri == null) {
-            // This is a new pet, so change the app bar to say "Add a Pet"
-            setTitle(getString(R.string.editor_activity_title_new_pet));
+        // If the intent DOES NOT contain a movie content URI, then we know that we are
+        // creating a new movie.
+        if (mCurrentMovieUri == null) {
+            // This is a new movie, so change the app bar to say "Add a movie"
+            setTitle(getString(R.string.editor_activity_title_new_movie));
         } else {
-            // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
-            setTitle(getString(R.string.editor_activity_title_edit_pet));
+            // Otherwise this is an existing movie, so change app bar to say "Edit movie"
+            setTitle(getString(R.string.editor_activity_title_edit_movie));
 
-            // Initialize a loader to read the pet data from the database
+            // Initialize a loader to read the movie data from the database
             // and display the current values in the editor
-            getLoaderManager().initLoader(EXISTING_PET_LOADER, null, this);
+            getLoaderManager().initLoader(EXISTING_MOVIE_LOADER, null, this);
         }
 
         // Find all relevant views that we will need to read user input from
@@ -115,7 +115,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Setup the dropdown spinner that allows the user to select the gender of the pet.
+     * Setup the dropdown spinner that allows the user to select the gender of the movie.
      */
 //    private void setupSpinner() {
 //        // Create adapter for spinner. The list options are from the String array it will use
@@ -154,9 +154,9 @@ public class EditorActivity extends AppCompatActivity implements
 //    }
 
     /**
-     * Get user input from editor and save pet into database.
+     * Get user input from editor and save movie into database.
      */
-    private void savePet() {
+    private void saveMovie() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
@@ -166,12 +166,12 @@ public class EditorActivity extends AppCompatActivity implements
         String idString = meditmovieidText.getText().toString().trim();
 
         // Create a ContentValues object where column names are the keys,
-        if (mCurrentPetUri == null &&
+        if (mCurrentMovieUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(directorString) && TextUtils.isEmpty(producerString) &&
                 TextUtils.isEmpty(lengthString)) {return;}
 
 
-        // and pet attributes from the editor are the values.
+        // and movie attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(MovieEntry._ID,idString);
         values.put(MovieEntry.COLUMN_MOVIE_NAME, nameString);
@@ -184,37 +184,37 @@ public class EditorActivity extends AppCompatActivity implements
         }
         values.put(MovieEntry.COLUMN_RUN_TIME, length);
 
-        // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
-        if (mCurrentPetUri == null) {
-            // This is a NEW pet, so insert a new pet into the provider,
-            // returning the content URI for the new pet.
+        // Determine if this is a new or existing movie by checking if mCurrentMovieUri is null or not
+        if (mCurrentMovieUri == null) {
+            // This is a NEW movie, so insert a new movie into the provider,
+            // returning the content URI for the new movie.
             Uri newUri = getContentResolver().insert(MovieEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, getString(R.string.editor_insert_pet_failed),
+                Toast.makeText(this, getString(R.string.editor_insert_movie_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_insert_pet_successful),
+                Toast.makeText(this, getString(R.string.editor_insert_movie_successful),
                         Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentPetUri
+            // Otherwise this is an EXISTING movie, so update the movie with content URI: mCurrentMovieUri
             // and pass in the new ContentValues. Pass in null for the selection and selection args
-            // because mCurrentPetUri will already identify the correct row in the database that
+            // because mCurrentMovieUri will already identify the correct row in the database that
             // we want to modify.
-            int rowsAffected = getContentResolver().update(mCurrentPetUri, values, null, null);
+            int rowsAffected = getContentResolver().update(mCurrentMovieUri, values, null, null);
 
             // Show a toast message depending on whether or not the update was successful.
             if (rowsAffected == 0) {
                 // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, getString(R.string.editor_update_pet_failed),
+                Toast.makeText(this, getString(R.string.editor_update_movie_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the update was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_update_pet_successful),
+                Toast.makeText(this, getString(R.string.editor_update_movie_successful),
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -234,8 +234,8 @@ public class EditorActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save pet to database
-                savePet();
+                // Save movie to database
+                saveMovie();
                 // Exit activity
                 finish();
                 return true;
@@ -246,9 +246,9 @@ public class EditorActivity extends AppCompatActivity implements
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
                 // Navigate back to parent activity (CatalogActivity)
-                // If the pet hasn't changed, continue with navigating up to parent activity
+                // If the movie hasn't changed, continue with navigating up to parent activity
 // which is the {@link CatalogActivity}.
-                if (!mPetHasChanged) {
+                if (!mMovieHasChanged) {
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     return true;
                 }
@@ -274,8 +274,8 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        // If the pet hasn't changed, continue with handling back button press
-        if (!mPetHasChanged) {
+        // If the movie hasn't changed, continue with handling back button press
+        if (!mMovieHasChanged) {
             super.onBackPressed();
             return;
         }
@@ -297,8 +297,8 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        // Since the editor shows all pet attributes, define a projection that contains
-        // all columns from the pet table
+        // Since the editor shows all movie attributes, define a projection that contains
+        // all columns from the movie table
         String[] projection = {
                 MovieEntry._ID,
                 MovieEntry.COLUMN_MOVIE_NAME,
@@ -308,7 +308,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                mCurrentPetUri,         // Query the content URI for the current pet
+                mCurrentMovieUri,         // Query the content URI for the current movie
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
@@ -325,7 +325,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Proceed with moving to the first row of the cursor and reading data from it
         // (This should be the only row in the cursor)
         if (cursor.moveToFirst()) {
-            // Find the columns of pet attributes that we're interested in
+            // Find the columns of movie attributes that we're interested in
             int nameColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_NAME);
             int idColumnIndex = cursor.getColumnIndex(MovieEntry._ID);
             int directorColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_DIRECTOR_NAME);
@@ -372,7 +372,7 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the movie.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -391,14 +391,14 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the pet.
-                deletePet();
+                // User clicked the "Delete" button, so delete the movie.
+                deleteMovie();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the movie.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -411,24 +411,24 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Perform the deletion of the pet in the database.
+     * Perform the deletion of the movie in the database.
      */
-    private void deletePet() {
-        // Only perform the delete if this is an existing pet.
-        if (mCurrentPetUri != null) {
-            // Call the ContentResolver to delete the pet at the given content URI.
-            // Pass in null for the selection and selection args because the mCurrentPetUri
-            // content URI already identifies the pet that we want.
-            int rowsDeleted = getContentResolver().delete(mCurrentPetUri, null, null);
+    private void deleteMovie() {
+        // Only perform the delete if this is an existing movie.
+        if (mCurrentMovieUri != null) {
+            // Call the ContentResolver to delete the movie at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentMovieUri
+            // content URI already identifies the movie that we want.
+            int rowsDeleted = getContentResolver().delete(mCurrentMovieUri, null, null);
 
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(this, getString(R.string.editor_delete_pet_failed),
+                Toast.makeText(this, getString(R.string.editor_delete_movie_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_delete_pet_successful),
+                Toast.makeText(this, getString(R.string.editor_delete_movie_successful),
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -448,37 +448,37 @@ public class EditorActivity extends AppCompatActivity implements
 
 
 
-//private boolean mPetHasChanged = false;
+//private boolean mMovieHasChanged = false;
 //
 //
 //    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
 //        @Override
 //        public boolean onTouch(View view, MotionEvent motionEvent) {
-//            mPetHasChanged = true;
+//            mMovieHasChanged = true;
 //            return false;
 //        }
 //    };
 //
-//    /** Identifier for the pet data loader */
-//    private static final int EXISTING_PET_LOADER = 0;
+//    /** Identifier for the movie data loader */
+//    private static final int EXISTING_MOVIE_LOADER = 0;
 //
-//    /** Content URI for the existing pet (null if it's a new pet) */
-//    private Uri mCurrentPetUri;
+//    /** Content URI for the existing movie (null if it's a new movie) */
+//    private Uri mCurrentMovieUri;
 //
-//    /** EditText field to enter the pet's name */
+//    /** EditText field to enter the movie's name */
 //    private EditText mNameEditText;
 //
-//    /** EditText field to enter the pet's breed */
+//    /** EditText field to enter the movie's breed */
 //    private EditText mBreedEditText;
 //
-//    /** EditText field to enter the pet's weight */
+//    /** EditText field to enter the movie's weight */
 //    private EditText mWeightEditText;
 //
-//    /** EditText field to enter the pet's gender */
+//    /** EditText field to enter the movie's gender */
 //    private Spinner mGenderSpinner;
 //
 ////    /**
-////     * Gender of the pet. The possible valid values are in the MovieContract.java file:
+////     * Gender of the movie. The possible valid values are in the MovieContract.java file:
 ////     * {@link MovieEntry#GENDER_UNKNOWN}, {@link MovieEntry#GENDER_MALE}, or
 ////     * {@link MovieEntry#GENDER_FEMALE}.
 ////     */
@@ -490,22 +490,22 @@ public class EditorActivity extends AppCompatActivity implements
 //        setContentView(R.layout.temp);
 //
 //        // Examine the intent that was used to launch this activity,
-//        // in order to figure out if we're creating a new pet or editing an existing one.
+//        // in order to figure out if we're creating a new movie or editing an existing one.
 //        Intent intent = getIntent();
-//        mCurrentPetUri = intent.getData();
+//        mCurrentMovieUri = intent.getData();
 //
-//        // If the intent DOES NOT contain a pet content URI, then we know that we are
-//        // creating a new pet.
-//        if (mCurrentPetUri == null) {
-//            // This is a new pet, so change the app bar to say "Add a Pet"
-//            setTitle(getString(R.string.editor_activity_title_new_pet));
+//        // If the intent DOES NOT contain a movie content URI, then we know that we are
+//        // creating a new movie.
+//        if (mCurrentMovieUri == null) {
+//            // This is a new movie, so change the app bar to say "Add a movie"
+//            setTitle(getString(R.string.editor_activity_title_new_movie));
 //        } else {
-//            // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
-//            setTitle(getString(R.string.editor_activity_title_edit_pet));
+//            // Otherwise this is an existing movie, so change app bar to say "Edit movie"
+//            setTitle(getString(R.string.editor_activity_title_edit_movie));
 //
-//            // Initialize a loader to read the pet data from the database
+//            // Initialize a loader to read the movie data from the database
 //            // and display the current values in the editor
-//            getLoaderManager().initLoader(EXISTING_PET_LOADER, null, this);
+//            getLoaderManager().initLoader(EXISTING_MOVIE_LOADER, null, this);
 //        }
 //
 //        // Find all relevant views that we will need to read user input from
@@ -523,7 +523,7 @@ public class EditorActivity extends AppCompatActivity implements
 //    }
 //
 //    /**
-//     * Setup the dropdown spinner that allows the user to select the gender of the pet.
+//     * Setup the dropdown spinner that allows the user to select the gender of the movie.
 //     */
 ////    private void setupSpinner() {
 ////        // Create adapter for spinner. The list options are from the String array it will use
@@ -562,9 +562,9 @@ public class EditorActivity extends AppCompatActivity implements
 ////    }
 //
 //    /**
-//     * Get user input from editor and save pet into database.
+//     * Get user input from editor and save movie into database.
 //     */
-//    private void savePet() {
+//    private void saveMovie() {
 //        // Read from input fields
 //        // Use trim to eliminate leading or trailing white space
 //        String nameString = mNameEditText.getText().toString().trim();
@@ -572,16 +572,16 @@ public class EditorActivity extends AppCompatActivity implements
 //        String weightString = mWeightEditText.getText().toString().trim();
 //
 //        // Create a ContentValues object where column names are the keys,
-//        if (mCurrentPetUri == null &&
+//        if (mCurrentMovieUri == null &&
 //                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(breedString) &&
 //                TextUtils.isEmpty(weightString)) {return;}
 //
 //
-//        // and pet attributes from the editor are the values.
+//        // and movie attributes from the editor are the values.
 //        ContentValues values = new ContentValues();
 //        values.put(MovieEntry.COLUMN_MOVIE_NAME, nameString);
 //        values.put(MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME, breedString);
-//     //   values.put(MovieEntry.COLUMN_PET_GENDER, mGender);
+//     //   values.put(MovieEntry.COLUMN_movie_GENDER, mGender);
 //
 //        int weight = 0;
 //        if (!TextUtils.isEmpty(weightString)) {
@@ -589,37 +589,37 @@ public class EditorActivity extends AppCompatActivity implements
 //        }
 //        values.put(MovieContract.MovieEntry.COLUMN_RUN_TIME, weight);
 //
-//        // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
-//        if (mCurrentPetUri == null) {
-//            // This is a NEW pet, so insert a new pet into the provider,
-//            // returning the content URI for the new pet.
+//        // Determine if this is a new or existing movie by checking if mCurrentMovieUri is null or not
+//        if (mCurrentMovieUri == null) {
+//            // This is a NEW movie, so insert a new movie into the provider,
+//            // returning the content URI for the new movie.
 //            Uri newUri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, values);
 //
 //            // Show a toast message depending on whether or not the insertion was successful.
 //            if (newUri == null) {
 //                // If the new content URI is null, then there was an error with insertion.
-//                Toast.makeText(this, getString(R.string.editor_insert_pet_failed),
+//                Toast.makeText(this, getString(R.string.editor_insert_movie_failed),
 //                        Toast.LENGTH_SHORT).show();
 //            } else {
 //                // Otherwise, the insertion was successful and we can display a toast.
-//                Toast.makeText(this, getString(R.string.editor_insert_pet_successful),
+//                Toast.makeText(this, getString(R.string.editor_insert_movie_successful),
 //                        Toast.LENGTH_SHORT).show();
 //            }
 //        } else {
-//            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentPetUri
+//            // Otherwise this is an EXISTING movie, so update the movie with content URI: mCurrentMovieUri
 //            // and pass in the new ContentValues. Pass in null for the selection and selection args
-//            // because mCurrentPetUri will already identify the correct row in the database that
+//            // because mCurrentMovieUri will already identify the correct row in the database that
 //            // we want to modify.
-//            int rowsAffected = getContentResolver().update(mCurrentPetUri, values, null, null);
+//            int rowsAffected = getContentResolver().update(mCurrentMovieUri, values, null, null);
 //
 //            // Show a toast message depending on whether or not the update was successful.
 //            if (rowsAffected == 0) {
 //                // If no rows were affected, then there was an error with the update.
-//                Toast.makeText(this, getString(R.string.editor_update_pet_failed),
+//                Toast.makeText(this, getString(R.string.editor_update_movie_failed),
 //                        Toast.LENGTH_SHORT).show();
 //            } else {
 //                // Otherwise, the update was successful and we can display a toast.
-//                Toast.makeText(this, getString(R.string.editor_update_pet_successful),
+//                Toast.makeText(this, getString(R.string.editor_update_movie_successful),
 //                        Toast.LENGTH_SHORT).show();
 //            }
 //        }
@@ -639,8 +639,8 @@ public class EditorActivity extends AppCompatActivity implements
 //        switch (item.getItemId()) {
 //            // Respond to a click on the "Save" menu option
 //            case R.id.action_save:
-//                // Save pet to database
-//                savePet();
+//                // Save movie to database
+//                saveMovie();
 //                // Exit activity
 //                finish();
 //                return true;
@@ -651,9 +651,9 @@ public class EditorActivity extends AppCompatActivity implements
 //            // Respond to a click on the "Up" arrow button in the app bar
 //            case android.R.id.home:
 //                // Navigate back to parent activity (CatalogActivity)
-//                // If the pet hasn't changed, continue with navigating up to parent activity
+//                // If the movie hasn't changed, continue with navigating up to parent activity
 //// which is the {@link CatalogActivity}.
-//                if (!mPetHasChanged) {
+//                if (!mMovieHasChanged) {
 //                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
 //                    return true;
 //                }
@@ -679,8 +679,8 @@ public class EditorActivity extends AppCompatActivity implements
 //
 //    @Override
 //    public void onBackPressed() {
-//        // If the pet hasn't changed, continue with handling back button press
-//        if (!mPetHasChanged) {
+//        // If the movie hasn't changed, continue with handling back button press
+//        if (!mMovieHasChanged) {
 //            super.onBackPressed();
 //            return;
 //        }
@@ -702,18 +702,18 @@ public class EditorActivity extends AppCompatActivity implements
 //
 //    @Override
 //    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-//        // Since the editor shows all pet attributes, define a projection that contains
-//        // all columns from the pet table
+//        // Since the editor shows all movie attributes, define a projection that contains
+//        // all columns from the movie table
 //        String[] projection = {
 //                MovieEntry._ID,
 //                MovieContract.MovieEntry.COLUMN_MOVIE_NAME,
 //                MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME,
-//            //    MovieEntry.COLUMN_PET_GENDER,
+//            //    MovieEntry.COLUMN_movie_GENDER,
 //                MovieEntry.COLUMN_RUN_TIME };
 //
 //        // This loader will execute the ContentProvider's query method on a background thread
 //        return new CursorLoader(this,   // Parent activity context
-//                mCurrentPetUri,         // Query the content URI for the current pet
+//                mCurrentMovieUri,         // Query the content URI for the current movie
 //                projection,             // Columns to include in the resulting Cursor
 //                null,                   // No selection clause
 //                null,                   // No selection arguments
@@ -730,10 +730,10 @@ public class EditorActivity extends AppCompatActivity implements
 //        // Proceed with moving to the first row of the cursor and reading data from it
 //        // (This should be the only row in the cursor)
 //        if (cursor.moveToFirst()) {
-//            // Find the columns of pet attributes that we're interested in
+//            // Find the columns of movie attributes that we're interested in
 //            int nameColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_NAME);
 //            int breedColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME);
-//     //       int genderColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_PET_GENDER);
+//     //       int genderColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_movie_GENDER);
 //            int weightColumnIndex = cursor.getColumnIndex(MovieEntry.COLUMN_RUN_TIME);
 //
 //            // Extract out the value from the Cursor for the given column index
@@ -782,7 +782,7 @@ public class EditorActivity extends AppCompatActivity implements
 //        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
 //            public void onClick(DialogInterface dialog, int id) {
 //                // User clicked the "Keep editing" button, so dismiss the dialog
-//                // and continue editing the pet.
+//                // and continue editing the movie.
 //                if (dialog != null) {
 //                    dialog.dismiss();
 //                }
@@ -801,14 +801,14 @@ public class EditorActivity extends AppCompatActivity implements
 //        builder.setMessage(R.string.delete_dialog_msg);
 //        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
 //            public void onClick(DialogInterface dialog, int id) {
-//                // User clicked the "Delete" button, so delete the pet.
-//                deletePet();
+//                // User clicked the "Delete" button, so delete the movie.
+//                deleteMovie();
 //            }
 //        });
 //        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 //            public void onClick(DialogInterface dialog, int id) {
 //                // User clicked the "Cancel" button, so dismiss the dialog
-//                // and continue editing the pet.
+//                // and continue editing the movie.
 //                if (dialog != null) {
 //                    dialog.dismiss();
 //                }
@@ -821,15 +821,15 @@ public class EditorActivity extends AppCompatActivity implements
 //    }
 //
 //    /**
-//     * Perform the deletion of the pet in the database.
+//     * Perform the deletion of the movie in the database.
 //     */
-//    private void deletePet() {
-//        // Only perform the delete if this is an existing pet.
-//        if (mCurrentPetUri != null) {
-//            // Call the ContentResolver to delete the pet at the given content URI.
-//            // Pass in null for the selection and selection args because the mCurrentPetUri
-//            // content URI already identifies the pet that we want.
-//            int rowsDeleted = getContentResolver().delete(mCurrentPetUri, null, null);
+//    private void deleteMovie() {
+//        // Only perform the delete if this is an existing movie.
+//        if (mCurrentMovieUri != null) {
+//            // Call the ContentResolver to delete the movie at the given content URI.
+//            // Pass in null for the selection and selection args because the mCurrentMovieUri
+//            // content URI already identifies the movie that we want.
+//            int rowsDeleted = getContentResolver().delete(mCurrentMovieUri, null, null);
 //
 //            // Show a toast message depending on whether or not the delete was successful.
 //            if (rowsDeleted == 0) {

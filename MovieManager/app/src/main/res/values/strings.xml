@@ -5,71 +5,71 @@
     <string name="theatres">Theatres</string>
 
 
-    <!-- Label for overflow menu option that inserts fake pet data into the app [CHAR LIMIT=20] -->
+    <!-- Label for overflow menu option that inserts fake movie data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
 
-    <!-- Label for overflow menu option that deletes all pet data in the app [CHAR LIMIT=20] -->
+    <!-- Label for overflow menu option that deletes all movie data in the app [CHAR LIMIT=20] -->
     <string name="action_delete_all_entries">Delete All</string>
 
     <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
     <string name="empty_view_title_text">It\'s a bit lonely here...</string>
 
-    <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
+    <!-- Subtitle text for the empty view that prompts the user to add a movie [CHAR LIMIT=50] -->
     <string name="empty_view_subtitle_text">Get started by adding data</string>
 
-    <!-- Title for the activity to add a new pet [CHAR LIMIT=20] -->
-    <string name="editor_activity_title_new_pet">Add a Movie</string>
+    <!-- Title for the activity to add a new movie [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_new_movie">Add a Movie</string>
 
-    <!-- Title for the activity to edit an existing pet [CHAR LIMIT=20] -->
-    <string name="editor_activity_title_edit_pet">Edit Movie</string>
+    <!-- Title for the activity to edit an existing movie [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_edit_movie">Edit Movie</string>
 
-    <!-- Label for editor menu option to save pet and leave editor [CHAR LIMIT=20] -->
+    <!-- Label for editor menu option to save movie and leave editor [CHAR LIMIT=20] -->
     <string name="action_save">Save</string>
 
-    <!-- Label for editor overflow menu option that deletes the current pet [CHAR LIMIT=20] -->
+    <!-- Label for editor overflow menu option that deletes the current movie [CHAR LIMIT=20] -->
     <string name="action_delete">Delete</string>
 
-    <!-- Toast message in editor when new pet has been successfully inserted [CHAR LIMIT=NONE] -->
-    <string name="editor_insert_pet_successful">saved</string>
+    <!-- Toast message in editor when new movie has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_movie_successful">saved</string>
 
-    <!-- Toast message in editor when new pet has failed to be inserted [CHAR LIMIT=NONE] -->
-    <string name="editor_insert_pet_failed">Error with saving</string>
+    <!-- Toast message in editor when new movie has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_movie_failed">Error with saving</string>
 
-    <!-- Toast message in editor when current pet was successfully updated [CHAR LIMIT=NONE] -->
-    <string name="editor_update_pet_successful">updated</string>
+    <!-- Toast message in editor when current movie was successfully updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_movie_successful">updated</string>
 
-    <!-- Toast message in editor when current pet has failed to be updated [CHAR LIMIT=NONE] -->
-    <string name="editor_update_pet_failed">Error with updating</string>
+    <!-- Toast message in editor when current movie has failed to be updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_movie_failed">Error with updating</string>
 
     <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
     <string name="category_overview">Overview</string>
 
     <!-- Label for gender information in the editor [CHAR LIMIT=30] -->
 
-    <!-- Label for dropdown menu option if the pet's gender is unknown [CHAR LIMIT=20] -->
+    <!-- Label for dropdown menu option if the movie's gender is unknown [CHAR LIMIT=20] -->
     <string name="gender_unknown">Unknown</string>
 
-    <string name="editor_delete_pet_successful">deleted</string>
+    <string name="editor_delete_movie_successful">deleted</string>
 
-    <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
-    <string name="editor_delete_pet_failed">Error with deleting</string>
-    <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
+    <!-- Toast message in editor when current movie has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_movie_failed">Error with deleting</string>
+    <!-- Dialog message to ask the user to confirm deleting the current movie [CHAR LIMIT=NONE] -->
     <string name="delete_dialog_msg">Delete this?</string>
 
-    <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
+    <!-- Dialog button text for the option to confirm deleting the current movie [CHAR LIMIT=20] -->
     <string name="delete">Delete</string>
 
-    <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
+    <!-- Dialog button text for the option to cancel deletion of the current movie [CHAR LIMIT=20] -->
     <string name="cancel">Cancel</string>
 
-    <!-- Label for dropdown menu option if the pet is male [CHAR LIMIT=20] -->
+    <!-- Label for dropdown menu option if the movie is male [CHAR LIMIT=20] -->
     <string name="gender_male">Male</string>
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
 
     <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
     <string name="discard">Discard</string>
 
-    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <!-- Dialog button text for the option to keep editing the current movie [CHAR LIMIT=20] -->
     <string name="keep_editing">Keep Editing</string>
 
 </resources>
