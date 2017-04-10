@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CatalogActivity"
+            android:name=".MovieActivity"
             android:label="Movies"
             android:parentActivityName=".MainActivity" >
         <meta-data
@@ -24,12 +24,12 @@
             android:value=".MainActivity" />
         </activity>
 
-        <activity android:name=".EditorActivity"
+        <activity android:name=".MovieEditorActivity"
             android:label="Add movie"
-            android:parentActivityName=".CatalogActivity">
+            android:parentActivityName=".MovieActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".CatalogActivity" />
+            android:value=".MovieActivity" />
             />
         </activity>
 

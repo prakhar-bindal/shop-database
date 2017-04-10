@@ -41,8 +41,8 @@ public class BuysCursorAdapter extends CursorAdapter {
     }
 
     /**
-     * This method binds the pet data (in the current row pointed to by cursor) to the given
-     * list item layout. For example, the name for the current pet can be set on the name TextView
+     * This method binds the MOVIE data (in the current row pointed to by cursor) to the given
+     * list item layout. For example, the name for the current MOVIE can be set on the name TextView
      * in the list item layout.
      *
      * @param view    Existing view, returned earlier by newView() method
@@ -91,8 +91,8 @@ public class BuysCursorAdapter extends CursorAdapter {
 
 
 
-//        int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PET_NAME);
-//        int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_PET_BREED);
+//        int nameColumnIndex=cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_NAME);
+//        int summaryColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_BREED);
 //        // Extract properties from cursor
 //        String name = cursor.getString(nameColumnIndex);
 //        String summary = cursor.getString(summaryColumnIndex);

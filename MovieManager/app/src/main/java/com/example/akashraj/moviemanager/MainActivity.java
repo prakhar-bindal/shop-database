@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         movieTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent launchMovieActivity = new Intent(MainActivity.this,CatalogActivity.class);
+                Intent launchMovieActivity = new Intent(MainActivity.this,MovieActivity.class);
                 startActivity(launchMovieActivity);
             }
         });

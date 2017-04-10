@@ -31,11 +31,11 @@ public final class MovieContract {
      * looking at movie data. content://com.example.android.movies/staff/ will fail,
      * as the ContentProvider hasn't been given any information on what to do with "staff".
      */
-    public static final String PATH_MOVIES = "movies2";
-    public static final String PATH_THEATRES = "theatres2";
-    public static final String PATH_SHOWS = "shows2";
-    public static final String PATH_CUSTOMER = "customer2";
-    public static final String PATH_BUYS = "buys2";
+    public static final String PATH_MOVIES = "movies";
+    public static final String PATH_THEATRES = "theatres";
+    public static final String PATH_SHOWS = "shows";
+    public static final String PATH_CUSTOMER = "customer";
+    public static final String PATH_BUYS = "buys";
 
     public static abstract class MovieEntry implements BaseColumns {
 

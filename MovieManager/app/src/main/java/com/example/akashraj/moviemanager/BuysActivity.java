@@ -41,7 +41,7 @@ public class BuysActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        // Setup FAB to open EditorActivity
+        // Setup FAB to open MovieEditorActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class BuysActivity extends AppCompatActivity implements
         movieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                // Create new intent to go to {@link EditorActivity}
+                // Create new intent to go to {@link MovieEditorActivity}
                 Intent intent = new Intent(BuysActivity.this, BuysEditorActivity.class);
 
                 // Form the content URI that represents the specific movie that was clicked on,
@@ -81,7 +81,7 @@ public class BuysActivity extends AppCompatActivity implements
                 // Set the URI on the data field of the intent
                 intent.setData(currentMovieUri);
 
-                // Launch the {@link EditorActivity} to display the data for the current movie.
+                // Launch the {@link MovieEditorActivity} to display the data for the current movie.
                 startActivity(intent);
             }
         });

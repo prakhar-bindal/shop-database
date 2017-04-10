@@ -28,6 +28,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -41,7 +42,7 @@ import com.example.akashraj.moviemanager.data.MovieContract.MovieEntry;
 /**
  * Allows user to create a new movie or edit an existing one.
  */
-public class EditorActivity extends AppCompatActivity implements
+public class MovieEditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -245,11 +246,11 @@ public class EditorActivity extends AppCompatActivity implements
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                // Navigate back to parent activity (CatalogActivity)
+                // Navigate back to parent activity (MovieActivity)
                 // If the movie hasn't changed, continue with navigating up to parent activity
-// which is the {@link CatalogActivity}.
+// which is the {@link MovieActivity}.
                 if (!mMovieHasChanged) {
-                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                    NavUtils.navigateUpFromSameTask(MovieEditorActivity.this);
                     return true;
                 }
 
@@ -261,7 +262,7 @@ public class EditorActivity extends AppCompatActivity implements
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 // User clicked "Discard" button, navigate to parent activity.
-                                NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                                NavUtils.navigateUpFromSameTask(MovieEditorActivity.this);
                             }
                         };
 
@@ -650,11 +651,11 @@ public class EditorActivity extends AppCompatActivity implements
 //                return true;
 //            // Respond to a click on the "Up" arrow button in the app bar
 //            case android.R.id.home:
-//                // Navigate back to parent activity (CatalogActivity)
+//                // Navigate back to parent activity (MovieActivity)
 //                // If the movie hasn't changed, continue with navigating up to parent activity
-//// which is the {@link CatalogActivity}.
+//// which is the {@link MovieActivity}.
 //                if (!mMovieHasChanged) {
-//                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
+//                    NavUtils.navigateUpFromSameTask(MovieEditorActivity.this);
 //                    return true;
 //                }
 //
@@ -666,7 +667,7 @@ public class EditorActivity extends AppCompatActivity implements
 //                            @Override
 //                            public void onClick(DialogInterface dialogInterface, int i) {
 //                                // User clicked "Discard" button, navigate to parent activity.
-//                                NavUtils.navigateUpFromSameTask(EditorActivity.this);
+//                                NavUtils.navigateUpFromSameTask(MovieEditorActivity.this);
 //                            }
 //                        };
 //

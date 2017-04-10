@@ -267,9 +267,9 @@ public class BuysEditorActivity extends AppCompatActivity implements
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                // Navigate back to parent activity (CatalogActivity)
+                // Navigate back to parent activity (MovieActivity)
                 // If the movie hasn't changed, continue with navigating up to parent activity
-// which is the {@link CatalogActivity}.
+// which is the {@link MovieActivity}.
                 if (!mMovieHasChanged) {
                     NavUtils.navigateUpFromSameTask(BuysEditorActivity.this);
                     return true;

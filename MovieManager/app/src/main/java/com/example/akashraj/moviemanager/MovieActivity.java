@@ -1,5 +1,25 @@
 package com.example.akashraj.moviemanager;
 
+/**
+ * Created by prakhar on 22/3/17.
+ */
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
@@ -17,32 +37,37 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.akashraj.moviemanager.data.MovieContract;
-
 /**
- * Created by Akashraj on 01-03-2017.
+ * Displays list of movies that were entered and stored in the app.
  */
+import com.example.akashraj.moviemanager.data.MovieContract;
+//import com.example.akashraj.moviemanager.data.MovieContract.MovieEntry;
+import com.example.akashraj.moviemanager.data.MovieContract.MovieEntry;
 
-public class TheatreActivity extends AppCompatActivity implements
+public class MovieActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the movie data loader */
+    /**
+     * Identifier for the movie data loader
+     */
     private static final int MOVIE_LOADER = 0;
 
-    /** Adapter for the ListView */
-    TheatreCursorAdapter mCursorAdapter;
+    /**
+     * Adapter for the ListView
+     */
+    MovieCursorAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        // Setup FAB to open TheatreEditorActivity
+        // Setup FAB to open MovieEditorActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TheatreActivity.this, TheatreEditorActivity.class);
+                Intent intent = new Intent(MovieActivity.this, MovieEditorActivity.class);
                 startActivity(intent);
             }
         });
@@ -54,29 +79,30 @@ public class TheatreActivity extends AppCompatActivity implements
         View emptyView = findViewById(R.id.empty_view);
         movieListView.setEmptyView(emptyView);
 
-        // Setup an Adapter to create a list item for each row of movie data in the Cursor.F
+        // Setup an Adapter to create a list item for each row of movie data in the Cursor.
         // There is no movie data yet (until the loader finishes) so pass in null for the Cursor.
-        mCursorAdapter = new TheatreCursorAdapter(this, null);
+        mCursorAdapter = new MovieCursorAdapter(this, null);
         movieListView.setAdapter(mCursorAdapter);
 
         // Setup the item click listener
         movieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                // Create new intent to go to {@link TheatreEditorActivity}
-                Intent intent = new Intent(TheatreActivity.this, TheatreEditorActivity.class);
+                // Create new intent to go to {@link MovieEditorActivity}
+                Intent intent = new Intent(MovieActivity.this, MovieEditorActivity.class);
 
                 // Form the content URI that represents the specific movie that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
-                // {@link MovieEntry#CONTENT_URI2}.
+                // {@link MovieEntry#CONTENT_URI}.
                 // For example, the URI would be "content://com.example.android.movies/movies/2"
                 // if the movie with ID 2 was clicked on.
-                Uri currentMovieUri = ContentUris.withAppendedId(MovieContract.MovieEntry.CONTENT_URI2, id);
+
+                Uri currentMovieUri = ContentUris.withAppendedId(MovieEntry.CONTENT_URI, id);
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentMovieUri);
 
-                // Launch the {@link TheatreEditorActivity} to display the data for the current movie.
+                // Launch the {@link MovieEditorActivity} to display the data for the current movie.
                 startActivity(intent);
             }
         });
@@ -85,23 +111,6 @@ public class TheatreActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(MOVIE_LOADER, null, this);
     }
 
-    /**
-     * Helper method to insert hardcoded movie data into the database. For debugging purposes only.
-     */
-//    private void insertmovie() {
-//        // Create a ContentValues object where column names are the keys,
-//        // and Toto's movie attributes are the values.
-//        ContentValues values = new ContentValues();
-//        values.put(MovieContract.MovieEntry.COLUMN_THEATRE_NAME, "G3S");
-//        values.put(MovieContract.MovieEntry.COLUMN_ADDRESS,"ROHINI");
-//        values.put(MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS, 3);
-//
-//        // Insert a new row for Toto into the provider using the ContentResolver.
-//        // Use the {@link MovieEntry#CONTENT_URI2} to indicate that we want to insert
-//        // into the movies database table.
-//        // Receive the new content URI that will allow us to access Toto's data in the future.
-//        Uri newUri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI2, values);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,13 +138,14 @@ public class TheatreActivity extends AppCompatActivity implements
         // Define a projection that specifies the columns from the table we care about.F
         String[] projection = {
                 MovieContract.MovieEntry._ID,
-                MovieContract.MovieEntry.COLUMN_THEATRE_NAME,
-                MovieContract.MovieEntry.COLUMN_ADDRESS,
-                MovieContract.MovieEntry.COLUMN_NUM_OF_SCREENS};
+                MovieContract.MovieEntry.COLUMN_MOVIE_NAME,
+                MovieContract.MovieEntry.COLUMN_PRODUCER_NAME,
+                MovieContract.MovieEntry.COLUMN_DIRECTOR_NAME,
+                MovieEntry.COLUMN_RUN_TIME};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                MovieContract.MovieEntry.CONTENT_URI2,   // Provider content URI to query
+                MovieEntry.CONTENT_URI,   // Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
@@ -144,7 +154,7 @@ public class TheatreActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link TheatreCursorAdapter} with this new cursor containing updated movie data
+        // Update {@link MovieCursorAdapter} with this new cursor containing updated movie data
         mCursorAdapter.swapCursor(data);
     }
 
@@ -155,8 +165,19 @@ public class TheatreActivity extends AppCompatActivity implements
     }
 
     private void deleteAllMovies() {
-        int rowsDeleted = getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI2, null, null);
+        int rowsDeleted = getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI, null, null);
         Log.v("MovieActivity", rowsDeleted + " rows deleted from movie database");
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
